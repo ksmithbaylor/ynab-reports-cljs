@@ -3,5 +3,5 @@
             [ui.core]))
 
 (fw/watch-and-reload
- :websocket-url   "ws://localhost:3449/figwheel-ws"
- :jsload-callback (fn [] (print "reloaded")))
+ :websocket-url "ws://localhost:3449/figwheel-ws"
+ :before-jsload #(.clear js/console))
