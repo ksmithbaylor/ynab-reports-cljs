@@ -1,5 +1,16 @@
 {
   "name": "hello-world",
   "version": "0.1.0",
-  "main": "resources/main.js"
+  "main": "resources/main.js",
+  "scripts": {
+    "build-electron": "env LEIN_FAST_TRAMPOLINE=y lein trampoline cljsbuild auto electron-dev",
+    "watch-electron": "nodemon -w resources/main.js --exec electron .",
+    "figwheel": "env LEIN_FAST_TRAMPOLINE=y lein trampoline figwheel frontend-dev",
+    "start": "run-p -l build-electron watch-electron figwheel"
+  },
+  "devDependencies": {
+    "electron": "^1.4.15",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.1"
+  }
 }
