@@ -1,4 +1,4 @@
-(defproject hello-electron "0.1.0-SNAPSHOT"
+(defproject ynab-reports "0.1.0-SNAPSHOT"
   :source-paths ["src"]
   :description "A hello world application for electron"
   :dependencies [[org.clojure/clojure "1.8.0"]
