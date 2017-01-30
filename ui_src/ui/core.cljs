@@ -1,59 +1,59 @@
 (ns ui.core
-  (:require [reagent.core :as reagent :refer [atom]]
-            [clojure.string :as string :refer [split-lines]]))
+  (:require [reagent.core :as r]
+            [cljs.pprint :refer [pprint]]))
 
-(def join-lines (partial string/join "\n"))
+(defonce todos (r/atom (sorted-map)))
+(defonce next-id (r/atom 0))
+(defonce input-value (r/atom ""))
 
-(enable-console-print!)
+(defn clear-all-todos []
+  (reset! todos (sorted-map)))
+(defn clear-text-field []
+  (reset! input-value ""))
 
-(defonce state        (atom 0))
-(defonce shell-result (atom ""))
-(defonce command      (atom ""))
+(defn add-todo []
+  (let [id (swap! next-id inc)
+        text @input-value]
+    (when-not (empty? text)
+      (clear-text-field)
+      (swap! todos assoc id {:id id
+                             :text text
+                             :done false}))))
 
-(defonce proc (js/require "child_process"))
+(defn remove-todo [id]
+  (swap! todos dissoc id))
 
-(defn append-to-out [out]
-  (swap! shell-result str out))
+(defn toggle-todo [id]
+  (let [before (get @todos id)
+        after (assoc before :done (not (:done before)))]
+    (swap! todos assoc id after)))
 
-(defn run-process []
-  (when-not (empty? @command)
-    (println "Running command" @command)
-    (let [[cmd & args] (string/split @command #"\s")
-          js-args (clj->js (or args []))
-          p (.spawn proc cmd js-args)]
-      (.on p "error" (comp append-to-out
-                           #(str % "\n")))
-      (.on (.-stderr p) "data" append-to-out)
-      (.on (.-stdout p) "data" append-to-out))
-    (reset! command "")))
+(defn todo-item [{:keys [id text done]}]
+  [:li {:on-click #(toggle-todo id) :key id}
+    [:span {:style {:text-decoration (if done "line-through" "inherit")
+                    :cursor "pointer"}}
+      text]])
 
-(defn root-component []
+(defn todo-list []
+  [:ul (map todo-item (vals @todos))])
+
+(defn input-box []
+  [:input {:type "text"
+           :value @input-value
+           :on-change #(reset! input-value (-> % .-target .-value))
+           :on-blur clear-text-field
+           :on-key-down #(case (.-which %)
+                           13 (add-todo)
+                           27 (reset! input-value "")
+                           nil)}])
+
+(defn app []
   [:div
-   [:div.logos
-    [:img.electron {:src "img/electron-logo.png"}]
-    [:img.cljs {:src "img/cljs-logo.svg"}]
-    [:img.reagent {:src "img/reagent-logo.png"}]]
-   [:pre "Versions:"
-    [:p (str "Node     " js/process.version)]
-    [:p (str "Electron " ((js->clj js/process.versions) "electron"))]
-    [:p (str "Chromium " ((js->clj js/process.versions) "chrome"))]]
-   [:button
-    {:on-click #(swap! state inc)}
-    (str "Clicked " @state " times")]
-   [:p
-    [:form
-     {:on-submit (fn [e]
-                   (.preventDefault e)
-                   (run-process))}
-     [:input#command
-      {:type :text
-       :on-change (fn [e]
-                    (reset! command
-                            (.-value (.-target e))))
-       :value @command
-       :placeholder "type in shell command"}]]]
-   [:pre (join-lines (take 100 (reverse (split-lines @shell-result))))]])
+    [input-box]
+    [todo-list]
+    [:button {:on-click clear-all-todos}
+      "Clear all"]])
 
-(reagent/render
-  [root-component]
+(r/render
+  [app]
   (js/document.getElementById "app-container"))
