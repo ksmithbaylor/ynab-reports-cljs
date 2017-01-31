@@ -3,3 +3,4 @@ resources/
 *-init.clj
 figwheel_server.log
 node_modules
+out

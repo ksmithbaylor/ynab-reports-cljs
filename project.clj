@@ -7,7 +7,8 @@
                  [reagent "0.6.0"]
                  [ring/ring-core "1.5.0"]]
   :plugins [[lein-cljsbuild "1.1.5"]
-            [lein-figwheel "0.5.8"]]
+            [lein-figwheel "0.5.8"]
+            [lein-doo "0.1.7"]]
 
   :clean-targets ^{:protect false} ["resources/main.js"
                                     "resources/public/js/ui-core.js"
@@ -45,7 +46,15 @@
                 :source-map "resources/public/js/ui-core.js.map"
                 :optimizations :simple
                 :cache-analysis true
-                :main "ui.core"}}]}
+                :main "ui.core"}}
+    {:source-paths ["test"]
+     :id "test"
+     :compiler {:output-to "resources/public/js/tests.js"
+                :main ui.test-runner
+                :target :nodejs
+                :optimizations :none}}]}
+  :doo {:build "test"
+        :alias {:default [:node]}}
   :figwheel {:http-server-root "public"
              :ring-handler tools.figwheel-middleware/app
              :server-port 3449})
