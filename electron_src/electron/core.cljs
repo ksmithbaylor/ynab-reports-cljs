@@ -14,8 +14,13 @@
   (.loadURL @main-window (str "file://" js/__dirname "/public/index.html"))
   (.openDevTools (.-webContents @main-window))
   (.log js/console "App initialized!")
-  (.on @main-window "closed" #(reset! main-window nil)))
 
-(.on app "window-all-closed" #(when-not (= js/process.platform "darwin")
-                                (.quit app)))
-(.on app "ready" init-browser)
+  (.on @main-window "closed"
+    #(reset! main-window nil)))
+
+(.on app "window-all-closed"
+  #(when-not (= js/process.platform "darwin")
+             (.quit app)))
+
+(.on app "ready"
+  init-browser)
