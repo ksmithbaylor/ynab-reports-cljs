@@ -4,9 +4,10 @@
   "main": "resources/main.js",
   "scripts": {
     "build-electron": "env LEIN_FAST_TRAMPOLINE=y lein trampoline cljsbuild auto electron-dev",
-    "watch-electron": "nodemon -w resources/main.js --exec electron .",
-    "figwheel": "env LEIN_FAST_TRAMPOLINE=y lein trampoline figwheel frontend-dev",
-    "start": "run-p -l build-electron watch-electron figwheel"
+    "watch-electron": "sleep 10 && nodemon -w resources/main.js --exec electron .",
+    "figwheel": "env LEIN_FAST_TRAMPOLINE=y rlwrap lein trampoline figwheel frontend-dev",
+    "electron": "run-p -l build-electron watch-electron",
+    "start": "run-p electron figwheel"
   },
   "devDependencies": {
     "electron": "^1.4.15",
