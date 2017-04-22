@@ -1,12 +1,10 @@
 (ns ui.core
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
-            [re-frisk.core :refer [enable-re-frisk!]]))
-
-(defn mount-root []
-  (rf/clear-subscription-cache!)
-  (r/render [:p "hello world"]
-            (.getElementById js/document "app-container")))
+            [re-frisk.core :refer [enable-re-frisk!]]
+            [ui.events :as events]
+            [ui.subs :as subs]
+            [ui.views :as views]))
 
 (defn dev-setup []
   (when goog.DEBUG
@@ -14,6 +12,12 @@
     (enable-re-frisk!)
     (println "dev mode on")))
 
-(dev-setup)
-(rf/dispatch-sync [:initialize])
-(mount-root)
+(defn init []
+  (dev-setup)
+  (rf/dispatch-sync [:initialize])
+  (rf/clear-subscription-cache!)
+  (r/render
+    [views/main]
+    (.getElementById js/document "app-container")))
+
+(init)
