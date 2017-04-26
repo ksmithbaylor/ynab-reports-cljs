@@ -1,8 +1,8 @@
-# cljs-electron-starter
+# ynab-helper
 
-Forked from [here](https://github.com/Gonzih/cljs-electron). I added a basic testing setup, implemented dynamic restarting of the Electron app, and consolidated everything under a single `yarn start` command.
+An Electron app that provides some extra functionality for YNAB 4. Completely offline and secure.
 
-## Using
+## Contributing
 
 To develop:
 

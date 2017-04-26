@@ -1,6 +1,6 @@
-(defproject hello-world "0.1.0-SNAPSHOT"
+(defproject ynab-helper "0.1.0-SNAPSHOT"
   :source-paths ["src"]
-  :description "A hello world application for electron"
+  :description "A helper for YNAB 4"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.456"]
                  [figwheel "0.5.8"]
