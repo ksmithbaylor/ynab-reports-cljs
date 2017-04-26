@@ -2,14 +2,14 @@
   :source-paths ["src"]
   :description "A helper for YNAB 4"
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.456"]
-                 [figwheel "0.5.8"]
-                 [reagent "0.6.0"]
-                 [re-frame "0.9.1"]
-                 [re-frisk "0.3.2"]
-                 [ring/ring-core "1.5.0"]]
+                 [org.clojure/clojurescript "1.9.521"]
+                 [figwheel "0.5.10"]
+                 [reagent "0.6.1"]
+                 [re-frame "0.9.2"]
+                 [re-frisk "0.4.5"]
+                 [ring/ring-core "1.5.1"]]
   :plugins [[lein-cljsbuild "1.1.5"]
-            [lein-figwheel "0.5.8"]
+            [lein-figwheel "0.5.10"]
             [lein-doo "0.1.7"]]
 
   :clean-targets ^{:protect false} ["resources/main.js"
