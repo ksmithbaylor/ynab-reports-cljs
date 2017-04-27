@@ -4,7 +4,7 @@
             [re-frisk.core :refer [enable-re-frisk!]]
             [ui.events :as events]
             [ui.subs :as subs]
-            [ui.views :as views]))
+            [ui.views.core :refer [app]]))
 
 ; This flag gets turned on during development
 (when goog.DEBUG
@@ -18,5 +18,5 @@
 
 ; Render the main component
 (r/render
-  [views/main]
+  [app]
   (.getElementById js/document "app-container"))

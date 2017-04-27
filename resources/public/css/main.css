@@ -2,3 +2,28 @@
   width: 100px;
   margin-left: 5px;
 }
+
+.ui {
+  display: grid;
+  height: 100vh;
+  grid-template-areas: "header header"
+                       "sidebar main";
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 50px
+                      1fr;
+}
+
+.ui__header {
+  grid-area: header;
+  background-color: rgb(102, 165, 210);
+}
+
+.ui__sidebar {
+  grid-area: sidebar;
+  background-color: rgb(0, 0, 0);
+}
+
+.ui__main {
+  grid-area: main;
+  padding: 0.5em;
+}
