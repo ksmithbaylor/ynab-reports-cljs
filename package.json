@@ -16,7 +16,7 @@
     "npm-run-all": "^4.0.2"
   },
   "dependencies": {
-    "antd": "^2.9.3",
+    "antd": "2.8.0",
     "less": "^2.7.2",
     "less-watch-compiler": "^1.4.2"
   }

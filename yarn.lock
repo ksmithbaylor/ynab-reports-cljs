@@ -24,43 +24,41 @@ ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
 
-antd@^2.9.3:
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-2.9.3.tgz#5b40349827fab882d73bd97707d614709a620863"
+antd@2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-2.8.0.tgz#79a4e47cdbeb975a07de0f6c2f1e23ec2e2435e6"
   dependencies:
     array-tree-filter "~1.0.0"
     babel-runtime "6.x"
     classnames "~2.2.0"
     css-animation "^1.2.5"
     dom-closest "^0.2.0"
-    lodash.debounce "^4.0.8"
-    moment "^2.18.1"
+    moment "~2.17.0"
     object-assign "~4.1.0"
     omit.js "^0.1.0"
-    prop-types "^15.5.7"
     rc-animate "~2.3.0"
-    rc-calendar "~8.0.0"
+    rc-calendar "~7.6.2"
     rc-cascader "~0.11.0"
     rc-checkbox "~1.5.0"
-    rc-collapse "~1.7.0"
+    rc-collapse "~1.6.4"
     rc-dialog "~6.5.0"
     rc-dropdown "~1.4.8"
     rc-editor-mention "~0.5.2"
     rc-form "~1.3.0"
-    rc-input-number "~3.4.4"
+    rc-input-number "~3.3.0"
     rc-menu "~5.0.9"
     rc-notification "~1.4.0"
-    rc-pagination "~1.8.0"
-    rc-progress "~2.1.0"
+    rc-pagination "~1.7.0"
+    rc-progress "~2.0.1"
     rc-radio "~2.0.0"
     rc-rate "~2.1.0"
-    rc-select "~6.8.0"
-    rc-slider "~7.0.0"
-    rc-steps "~2.5.0"
+    rc-select "~6.7.1"
+    rc-slider "~6.1.0"
+    rc-steps "~2.4.0"
     rc-switch "~1.4.2"
     rc-table "~5.2.13"
-    rc-tabs "~7.3.0"
-    rc-time-picker "~2.3.3"
+    rc-tabs "~7.2.0"
+    rc-time-picker "~2.2.1"
     rc-tooltip "~3.4.2"
     rc-tree "~1.4.0"
     rc-tree-select "~1.9.0"
@@ -338,7 +336,7 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-create-react-class@15.x, create-react-class@^15.5.2:
+create-react-class@^15.5.2:
   version "15.5.2"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.5.2.tgz#6a8758348df660b88326a0e764d569f274aad681"
   dependencies:
@@ -484,8 +482,8 @@ electron-download@^3.0.1:
     sumchecker "^1.2.0"
 
 electron@^1.6.6:
-  version "1.6.6"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.6.tgz#17df8cdf73ec2c04cfad7abb413579b8b8dafc28"
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.7.tgz#08b90812912a66f80cfb47bdaef6edfd6b78aa81"
   dependencies:
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
@@ -1412,9 +1410,9 @@ mocha@^3.1.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-moment@2.x, moment@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
+moment@2.x, moment@~2.17.0:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
 ms@0.7.1:
   version "0.7.1"
@@ -1696,7 +1694,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@15.x, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8:
+prop-types@^15.5.6, prop-types@^15.5.8:
   version "15.5.8"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
@@ -1746,9 +1744,9 @@ rc-animate@2.x, rc-animate@^2.0.2, rc-animate@^2.3.0, rc-animate@~2.3.0:
     css-animation "^1.3.0"
     prop-types "^15.5.6"
 
-rc-calendar@~8.0.0:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-8.0.1.tgz#923f3b2a5336fdcc7b5e3ccbfb7b3bb8be42c835"
+rc-calendar@~7.6.2:
+  version "7.6.7"
+  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-7.6.7.tgz#3d133755e540fed1cffa5f2047d54ff803e15ec0"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -1773,13 +1771,12 @@ rc-checkbox@1.x, rc-checkbox@~1.5.0:
     classnames "2.x"
     rc-util "^4.0.1"
 
-rc-collapse@~1.7.0:
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/rc-collapse/-/rc-collapse-1.7.3.tgz#3ef64cb7b845b91d50cc73df1adc2c95e79ac1c5"
+rc-collapse@~1.6.4:
+  version "1.6.12"
+  resolved "https://registry.yarnpkg.com/rc-collapse/-/rc-collapse-1.6.12.tgz#4eb3a866cdeea7eea9962e8072ecbbf0025f427b"
   dependencies:
     classnames "2.x"
     css-animation "1.x"
-    prop-types "^15.5.6"
     rc-animate "2.x"
 
 rc-dialog@~6.5.0:
@@ -1831,14 +1828,12 @@ rc-form@~1.3.0:
     lodash.set "^4.3.2"
     warning "^3.0.0"
 
-rc-input-number@~3.4.4:
-  version "3.4.14"
-  resolved "https://registry.yarnpkg.com/rc-input-number/-/rc-input-number-3.4.14.tgz#efea6944edb293906e2f57d8c01f06a79938bda0"
+rc-input-number@~3.3.0:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/rc-input-number/-/rc-input-number-3.3.5.tgz#b65a81bc1d9370727355089bd78728c0dfd5e526"
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.0"
-    create-react-class "^15.5.2"
-    prop-types "^15.5.7"
     rc-touchable "^1.0.0"
 
 "rc-menu@5.x || 4.x", rc-menu@~5.0.9:
@@ -1862,17 +1857,13 @@ rc-notification@~1.4.0:
     rc-animate "2.x"
     rc-util "4.x"
 
-rc-pagination@~1.8.0:
-  version "1.8.7"
-  resolved "https://registry.yarnpkg.com/rc-pagination/-/rc-pagination-1.8.7.tgz#029ad1b8d8650e8cf286b11076dc9ce12a194cfb"
-  dependencies:
-    prop-types "^15.5.7"
+rc-pagination@~1.7.0:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/rc-pagination/-/rc-pagination-1.7.5.tgz#72b0a3f7f33819f8203a9cf17f251c8ce6daeffa"
 
-rc-progress@~2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/rc-progress/-/rc-progress-2.1.1.tgz#808cb3cd42e75cf986569d9c03ecff7158b73df4"
-  dependencies:
-    prop-types "^15.5.8"
+rc-progress@~2.0.1:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/rc-progress/-/rc-progress-2.0.6.tgz#799af503904330d35184ab00d61ebfcbc005c486"
 
 rc-radio@~2.0.0:
   version "2.0.1"
@@ -1887,9 +1878,9 @@ rc-rate@~2.1.0:
     classnames "^2.2.5"
     prop-types "^15.5.8"
 
-rc-select@~6.8.0:
-  version "6.8.2"
-  resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-6.8.2.tgz#8b8b3ae2297ab91d0a5ab6821ac45a5c63834466"
+rc-select@~6.7.1:
+  version "6.7.5"
+  resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-6.7.5.tgz#5ca263d71be1233042ba9e84282e27ddab37ae69"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -1901,24 +1892,22 @@ rc-select@~6.8.0:
     rc-util "4.x"
     warning "2.x"
 
-rc-slider@~7.0.0:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/rc-slider/-/rc-slider-7.0.2.tgz#119ea8343233ebf42445728784ec9c1899ae9ac0"
+rc-slider@~6.1.0:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/rc-slider/-/rc-slider-6.1.2.tgz#4509e813075f478dd64f03762634723e0970976b"
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.5"
-    prop-types "^15.5.4"
     rc-tooltip "^3.4.2"
     rc-util "^4.0.0"
     warning "^3.0.0"
 
-rc-steps@~2.5.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/rc-steps/-/rc-steps-2.5.1.tgz#c3969aea3fb984cecb977a4a96ab634d756a6dc4"
+rc-steps@~2.4.0:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/rc-steps/-/rc-steps-2.4.3.tgz#1f1d3a4def335e53c626416b62bdf6f55bcd9a3b"
   dependencies:
     classnames "^2.2.3"
     lodash.debounce "^4.0.8"
-    prop-types "^15.5.7"
 
 rc-switch@~1.4.2:
   version "1.4.4"
@@ -1937,25 +1926,21 @@ rc-table@~5.2.13:
     shallowequal "^0.2.2"
     warning "^3.0.0"
 
-rc-tabs@~7.3.0:
-  version "7.3.4"
-  resolved "https://registry.yarnpkg.com/rc-tabs/-/rc-tabs-7.3.4.tgz#c0b8753fc0cc5e6c3354a815afe96b8f00361a3a"
+rc-tabs@~7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/rc-tabs/-/rc-tabs-7.2.0.tgz#9ac14ce3bf6f395142acc04db562ade0dfdc3f4b"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
-    create-react-class "15.x"
-    prop-types "15.x"
     react-hammerjs "~0.5.0"
-    warning "^3.0.0"
 
-rc-time-picker@~2.3.3:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/rc-time-picker/-/rc-time-picker-2.3.5.tgz#0d7406941a1112dd9e52834c78692647a7ae0dd4"
+rc-time-picker@~2.2.1:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/rc-time-picker/-/rc-time-picker-2.2.2.tgz#0fbc7469c56197a54df4c700657b47b34c27e5d5"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
     moment "2.x"
-    prop-types "^15.5.8"
     rc-trigger "1.x"
 
 rc-tooltip@^3.4.2, rc-tooltip@~3.4.2:
