@@ -1,5 +1,5 @@
 (defproject ynab-helper "0.1.0-SNAPSHOT"
-  :source-paths ["src"]
+  :source-paths ["src" "ui_src" "electron_src" "dev_src"]
   :description "A helper for YNAB 4"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.521"]

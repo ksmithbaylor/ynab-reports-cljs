@@ -5,3 +5,4 @@ resources/public/js
 figwheel_server.log
 node_modules
 out
+.lein-repl-history
