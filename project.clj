@@ -7,7 +7,8 @@
                  [reagent "0.6.1"]
                  [re-frame "0.9.2"]
                  [re-frisk "0.4.5"]
-                 [ring/ring-core "1.5.1"]]
+                 [ring/ring-core "1.5.1"]
+                 [cljsjs/antd "2.8.0-0"]]
   :plugins [[lein-cljsbuild "1.1.5"]
             [lein-figwheel "0.5.10"]
             [lein-doo "0.1.7"]]
@@ -62,5 +63,6 @@
   :doo {:build "test"
         :alias {:default [:node]}}
   :figwheel {:http-server-root "public"
+             :css-dirs ["resources/public/css"]
              :ring-handler tools.figwheel-middleware/app
              :server-port 3449})
