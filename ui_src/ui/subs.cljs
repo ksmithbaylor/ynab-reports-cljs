@@ -1,10 +1,5 @@
 (ns ui.subs
-  (:require [re-frame.core :as rf]))
-
-; Create subscriptions for several keys in the db,
-; using the key itself as the selector
-(defn- expose-keys [& keys]
-  (doseq [key keys]
-    (rf/reg-sub key key)))
+  (:require [re-frame.core :as rf])
+  (:require-macros [ui.helpers.reframe :refer [expose-keys]]))
 
 (expose-keys :text)
