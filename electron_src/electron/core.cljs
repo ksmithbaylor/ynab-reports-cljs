@@ -18,6 +18,8 @@
   (.on @main-window "closed"
     #(reset! main-window nil)))
 
+(.appendSwitch (.-commandLine app) "--enable-experimental-web-platform-features")
+
 (.on app "window-all-closed"
   #(when-not (= js/process.platform "darwin")
              (.quit app)))
