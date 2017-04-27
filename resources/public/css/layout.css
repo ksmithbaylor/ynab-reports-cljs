@@ -1,0 +1,13 @@
+.ui {
+  display: grid;
+  height: 100vh;
+  grid-template-areas: "header header"
+                       "sidebar main";
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 50px
+                      1fr;
+}
+
+.ui__header  { grid-area: header;  }
+.ui__sidebar { grid-area: sidebar; }
+.ui__main    { grid-area: main;    }
