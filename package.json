@@ -7,11 +7,17 @@
     "watch-electron": "sleep 10 && nodemon -w resources/main.js --exec electron .",
     "figwheel": "env LEIN_FAST_TRAMPOLINE=y rlwrap lein trampoline figwheel frontend-dev",
     "electron": "run-p -l build-electron watch-electron",
+    "less": "less-watch-compiler resources/public/less resources/public/css main.less",
     "start": "run-p electron figwheel"
   },
   "devDependencies": {
     "electron": "^1.6.6",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2"
+  },
+  "dependencies": {
+    "antd": "^2.9.3",
+    "less": "^2.7.2",
+    "less-watch-compiler": "^1.4.2"
   }
 }
