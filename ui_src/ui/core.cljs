@@ -9,8 +9,7 @@
 ; This flag gets turned on during development
 (when goog.DEBUG
   (enable-console-print!)
-  (enable-re-frisk!)
-  (println "dev mode on"))
+  (enable-re-frisk!))
 
 ; Initialize the re-frame app
 (rf/dispatch-sync [:initialize])
