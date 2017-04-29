@@ -7,6 +7,7 @@
                  [reagent "0.6.1"]
                  [re-frame "0.9.2"]
                  [re-frisk "0.4.5"]
+                 [binaryage/devtools "0.9.4"]
                  [ring/ring-core "1.5.1"]
                  [cljsjs/antd "2.8.0-0"]]
   :plugins [[lein-cljsbuild "1.1.5"]
