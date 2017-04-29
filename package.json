@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "main": "resources/main.js",
   "scripts": {
-    "build-electron": "env LEIN_FAST_TRAMPOLINE=y lein trampoline cljsbuild auto electron-dev",
+    "build-electron": "lein trampoline cljsbuild auto electron-dev",
     "watch-electron": "sleep 10 && nodemon -w resources/main.js --exec electron .",
-    "figwheel": "env LEIN_FAST_TRAMPOLINE=y rlwrap lein trampoline figwheel frontend-dev",
+    "figwheel": "rlwrap lein trampoline figwheel frontend-dev",
     "electron": "run-p -l build-electron watch-electron",
     "less": "less-watch-compiler resources/public/less resources/public/css main.less",
     "start": "run-p electron figwheel"
