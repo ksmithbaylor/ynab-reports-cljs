@@ -1,5 +1,7 @@
 (ns ui.subs
-  (:require [re-frame.core :as rf])
-  (:require-macros [ui.helpers.reframe :refer [expose-keys]]))
+  (:require [re-frame.core :as rf]
+            [ui.db :refer [initial-state]]))
 
-(expose-keys :text)
+; Expose all top-level db keys as subscriptions
+(doseq [key (keys initial-state)]
+  (rf/reg-sub key key))
