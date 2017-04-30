@@ -1,14 +1,14 @@
 (ns ui.views.main
-  (:require [reagent.core :as r]
-            [re-frame.core :as rf]
-            [cljsjs.antd])
-  (:require-macros [ui.helpers.antd :refer [antd->reagent]]))
+  (:require [re-frame.core :as rf]
+            [ui.pages.hello :refer [hello]]
+            [ui.pages.other :refer [other]]))
 
-(antd->reagent Button)
+(def routes
+  {:hello hello
+   :other other})
 
 (defn main []
-  [:main {:class "ui__main"}
-    [:p @(rf/subscribe [:text])]
-    [Button {:type "primary"
-             :onClick #(rf/dispatch [:append "!"])}
-      "Get excited!"]])
+  (let [page @(rf/subscribe [:page])
+        component (routes page)]
+    [:main {:class "ui__main"}
+      [component]]))

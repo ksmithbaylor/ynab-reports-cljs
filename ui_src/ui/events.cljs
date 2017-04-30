@@ -24,3 +24,7 @@
     (assoc db :text
       (str (:text db)
            new-str))))
+
+(register-event-handler :navigate
+  (fn [db [_ new-route]]
+    (assoc db :page new-route)))

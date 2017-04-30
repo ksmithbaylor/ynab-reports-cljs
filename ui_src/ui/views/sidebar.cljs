@@ -5,13 +5,13 @@
   (:require-macros [ui.helpers.antd :refer [antd->reagent]]))
 
 (antd->reagent Menu
-               Menu.SubMenu
                Menu.Item)
 
 (defn sidebar []
   [:aside {:class "ui__sidebar"}
-    [Menu {:theme "dark" :mode "inline"}
-      [Menu-SubMenu {:key "sub1" :title "Things"}
-        [Menu-Item {:key "1"} "One"]
-        [Menu-Item {:key "2"} "Two"]
-        [Menu-Item {:key "3"} "Three"]]]])
+    [Menu {:theme "dark"
+           :mode "inline"
+           :selectedKeys [(name @(rf/subscribe [:page]))]
+           :onClick #(rf/dispatch [:navigate (keyword (.-key %1))])}
+      [Menu-Item {:key :hello} "Hello"]
+      [Menu-Item {:key :other} "Other"]]])
