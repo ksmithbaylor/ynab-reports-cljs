@@ -1,13 +1,8 @@
 (ns ui.pages.hello
   (:require [re-frame.core :as rf]
-            [cljsjs.antd])
-  (:require-macros [ui.helpers.antd :refer [antd->reagent]]))
-
-(antd->reagent Button)
+            [ui.components.buttons :refer [excited-button]]))
 
 (defn hello []
   [:div
-    [:p @(rf/subscribe [:text])]
-    [Button {:type "primary"
-             :onClick #(rf/dispatch [:append "!"])}
-      "Get excited!"]])
+    [excited-button]
+    [:p @(rf/subscribe [:text])]])
