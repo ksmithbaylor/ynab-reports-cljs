@@ -1,4 +1,5 @@
-(ns ui.helpers.antd)
+(ns ui.helpers.antd
+  (:require [reagent.core :as r]))
 
 (defn- has-dots? [sym]
   (not (clojure.string/blank? (re-matches #".*\..*" (str sym)))))
@@ -9,15 +10,13 @@
 (defmacro adapt-single [component]
   `(def ~component
     (r/adapt-react-class
-      (~(->> `~component
-             (str ".-")
-             (symbol))
+      (~(to-property-access `~component)
         js/antd))))
 
 (defmacro adapt-nested [component]
   (let [heirarchy (-> component
-                            str
-                            (clojure.string/split #"\."))
+                      str
+                      (clojure.string/split #"\."))
               access-symbols (map to-property-access heirarchy)
               final-name (symbol (clojure.string/join "-" heirarchy))]
     `(def ~final-name
