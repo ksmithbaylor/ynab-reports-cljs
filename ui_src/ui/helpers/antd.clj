@@ -8,7 +8,7 @@
   (symbol (str ".-" name)))
 
 (defmacro adapt-single [component]
-  `(def ~component
+  `(def ^:private ~component
     (r/adapt-react-class
       (~(to-property-access `~component)
         js/antd))))
@@ -19,7 +19,7 @@
                       (clojure.string/split #"\."))
               access-symbols (map to-property-access heirarchy)
               final-name (symbol (clojure.string/join "-" heirarchy))]
-    `(def ~final-name
+    `(def ^:private ~final-name
        (r/adapt-react-class
           (-> js/antd ~@access-symbols)))))
 
