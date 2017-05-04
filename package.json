@@ -8,7 +8,9 @@
     "electron": "run-p -l build-electron watch-electron",
     "less": "less-watch-compiler resources/public/less resources/public/css main.less",
     "figwheel": "rlwrap lein trampoline figwheel frontend-dev",
-    "start": "run-p -l electron less figwheel"
+    "lein-repl": "lein repl",
+    "sourcemap-server": "http-server -p 9988 resources/public",
+    "start": "run-p -l electron less lein-repl sourcemap-server"
   },
   "devDependencies": {
     "electron": "^1.6.6",

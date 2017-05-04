@@ -41,6 +41,7 @@
      :compiler {:output-to "resources/public/js/ui-core.js"
                 :output-dir "resources/public/js/ui-out"
                 :source-map true
+                :source-map-asset-path "http://localhost:9988/"
                 :asset-path "js/ui-out"
                 :optimizations :none
                 :cache-analysis true
