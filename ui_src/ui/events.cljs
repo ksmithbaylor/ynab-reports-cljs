@@ -2,7 +2,10 @@
   (:require [re-frame.core :as rf :refer [debug]]
             [ui.db :as db]))
 
-; Helper to add middleware to every event handler
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helpers
+
+; Adds middleware to every event handler
 (defn inject-middleware [middlewares & args]
   (let [[event handler] (split-at 1 args)]
     (apply rf/reg-event-db
@@ -10,7 +13,7 @@
                    [middlewares]
                    handler)))))
 
-; Define what middleware to inject
+; Defines what middleware to inject
 (def register-event-handler
   (partial inject-middleware
     [debug]))
