@@ -26,6 +26,16 @@
   (partial inject-middleware
     [draw-line debug]))
 
+(defn register-setter
+  ([db-key]
+   (register-setter
+     db-key
+     (keyword (str "set-" (name db-key)))))
+  ([db-key event]
+   (register-event-handler event
+     (fn [db [_ arg]]
+       (assoc db db-key arg)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Event handlers
 
@@ -39,10 +49,5 @@
       (str (:text db)
            new-str))))
 
-(register-event-handler :navigate
-  (fn [db [_ new-route]]
-    (assoc db :page new-route)))
-
-(register-event-handler :prefs/set-budget-location
-  (fn [db [_ new-location]]
-    (assoc db :budget-location new-location)))
+(register-setter :page :navigate)
+(register-setter :budget-location)
