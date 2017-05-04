@@ -1,5 +1,5 @@
 (ns ui.db)
 
-(def initial-state
+(defonce initial-state
   {:text "Hola mundo"
    :page :hello})

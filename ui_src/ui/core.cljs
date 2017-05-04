@@ -14,8 +14,10 @@
   (enable-re-frisk!))
 
 ; Initialize the re-frame app
-(rf/dispatch-sync [:initialize])
-(rf/clear-subscription-cache!)
+(defonce setup
+  (do
+    (rf/dispatch-sync [:initialize])
+    (rf/clear-subscription-cache!)))
 
 ; Render the main component
 (r/render
