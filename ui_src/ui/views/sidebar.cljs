@@ -14,4 +14,5 @@
            :selectedKeys [(name @(rf/subscribe [:page]))]
            :onClick #(rf/dispatch [:navigate (keyword (.-key %1))])}
       [Menu-Item {:key :hello} "Hello"]
-      [Menu-Item {:key :other} "Other"]]])
+      [Menu-Item {:key :other} "Other"]
+      [Menu-Item {:key :preferences} "Preferences"]]])

@@ -31,3 +31,7 @@
 (register-event-handler :navigate
   (fn [db [_ new-route]]
     (assoc db :page new-route)))
+
+(register-event-handler :prefs/set-budget-location
+  (fn [db [_ new-location]]
+    (assoc db :budget-location new-location)))

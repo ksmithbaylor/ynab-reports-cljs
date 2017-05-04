@@ -2,4 +2,5 @@
 
 (defonce initial-state
   {:text "Hola mundo"
-   :page :hello})
+   :page :hello
+   :budget-location nil})
