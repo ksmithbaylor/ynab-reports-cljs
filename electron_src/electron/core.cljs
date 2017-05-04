@@ -20,6 +20,7 @@
     #(reset! main-window nil)))
 
 (.appendSwitch (.-commandLine app) "--enable-experimental-web-platform-features")
+(.appendSwitch (.-commandLine app) "--remote-debugging-port=9222")
 
 (.on app "window-all-closed"
   #(when-not (= js/process.platform "darwin")
