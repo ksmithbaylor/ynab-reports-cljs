@@ -4,13 +4,10 @@
   "main": "resources/main.js",
   "scripts": {
     "build-electron": "lein trampoline cljsbuild auto electron-dev",
-    "watch-electron": "sleep 10 && nodemon -w resources/main.js --exec electron .",
-    "electron": "run-p -l build-electron watch-electron",
+    "watch-electron": "sleep 20 && nodemon -w resources/main.js --exec electron .",
     "less": "less-watch-compiler resources/public/less resources/public/css main.less",
     "figwheel": "rlwrap lein trampoline figwheel frontend-dev",
-    "lein-repl": "lein repl",
-    "sourcemap-server": "http-server -p 9988 resources/public",
-    "start": "run-p -l electron less lein-repl sourcemap-server"
+    "start": "run-p -l build-electron watch-electron less"
   },
   "devDependencies": {
     "electron": "^1.6.6",

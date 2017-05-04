@@ -4,13 +4,13 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.521"]
                  [org.clojure/tools.nrepl "0.2.13"]
+                 [com.cemerick/piggieback "0.2.1"]
                  [figwheel "0.5.10"]
                  [figwheel-sidecar "0.5.10"]
                  [reagent "0.6.1"]
                  [re-frame "0.9.2"]
                  [re-frisk "0.4.5"]
                  [binaryage/devtools "0.9.4"]
-                 [binaryage/dirac "1.2.6"]
                  [ring/ring-core "1.5.1"]
                  [cljsjs/antd "2.8.0-0"]]
   :plugins [[lein-cljsbuild "1.1.5"]
@@ -21,11 +21,8 @@
                                     "resources/public/js/ui-core.js"
                                     "resources/public/js/ui-core.js.map"
                                     "resources/public/js/ui-out"]
-  :profiles {:repl {:repl-options {:port 8230
-                                   :nrepl-middleware [dirac.nrepl/middleware]
-                                   :init (do
-                                           (require 'dirac.agent)
-                                           (dirac.agent/boot!))}}}
+  :repl-options {:port 8230
+                 :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :cljsbuild
   {:builds
    [{:source-paths ["electron_src"]
@@ -41,7 +38,6 @@
      :compiler {:output-to "resources/public/js/ui-core.js"
                 :output-dir "resources/public/js/ui-out"
                 :source-map true
-                :source-map-asset-path "http://localhost:9988/"
                 :asset-path "js/ui-out"
                 :optimizations :none
                 :cache-analysis true
@@ -76,4 +72,6 @@
              :css-dirs ["resources/public/css"]
              :ring-handler tools.figwheel-middleware/app
              :server-port 3449
+             :nrepl-port 8230
+             :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
              :repl false})

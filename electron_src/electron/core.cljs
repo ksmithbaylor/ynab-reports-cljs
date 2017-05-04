@@ -13,7 +13,7 @@
 
   ; Path is relative to the compiled js file (main.js in our case)
   (.loadURL @main-window (str "file://" js/__dirname "/public/index.html"))
-  ; (.openDevTools (.-webContents @main-window))
+  (.openDevTools (.-webContents @main-window))
   (.log js/console "App initialized!")
 
   (.on @main-window "closed"

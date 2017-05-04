@@ -2,8 +2,7 @@
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
             [re-frisk.core :refer [enable-re-frisk!]]
-            ; [devtools.core :as devtools]
-            [dirac.runtime :as dirac]
+            [devtools.core :as devtools]
             [ui.events :as events]
             [ui.subs :as subs]
             [ui.views.core :refer [app]]))
@@ -11,8 +10,7 @@
 ; This flag gets turned on during development
 (when goog.DEBUG
   (enable-console-print!)
-  ; (devtools/install!)
-  (dirac/install!)
+  (devtools/install! [:formatters :hints :async])
   (enable-re-frisk!))
 
 ; Initialize the re-frame app
@@ -25,3 +23,8 @@
 (r/render
   [app]
   (.getElementById js/document "app-container"))
+
+#_(do
+    (use 'figwheel-sidecar.repl-api)
+    (start-figwheel!)
+    (cljs-repl))
