@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "antd": "2.8.0",
+    "glob-fs": "^0.1.6",
     "less": "^2.7.2",
     "less-watch-compiler": "^1.4.2"
   }

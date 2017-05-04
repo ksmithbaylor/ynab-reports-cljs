@@ -51,3 +51,5 @@
 
 (register-setter :page :navigate)
 (register-setter :budget-location)
+(register-setter :budget-file)
+(register-setter :last-modified)

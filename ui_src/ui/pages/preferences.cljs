@@ -1,6 +1,7 @@
 (ns ui.pages.preferences
   (:require [re-frame.core :as rf]
-            [reagent.core :as r])
+            [reagent.core :as r]
+            [ui.fs.budget :refer [all-budget-files latest-budget-file]])
   (:require-macros [ui.helpers.antd :refer [antd->reagent]]))
 
 (def ^:private electron (js/require "electron"))
@@ -13,7 +14,10 @@
 ;; Helpers
 
 (defn- handleFilePicked [[file]]
-  (rf/dispatch [:prefs/set-budget-location file]))
+  (rf/dispatch [:set-budget-location file])
+  (let [{:keys [file time]} (latest-budget-file file)]
+    (rf/dispatch [:set-last-modified time])
+    (rf/dispatch [:set-budget-file file])))
 
 (defn- chooseFile []
   (.showOpenDialog dialog handleFilePicked))
