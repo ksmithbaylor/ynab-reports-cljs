@@ -15,6 +15,9 @@
   (partial inject-middleware
     [debug]))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Event handlers
+
 (register-event-handler :initialize
   (fn [_ _]
     db/initial-state))
