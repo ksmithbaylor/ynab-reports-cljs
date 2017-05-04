@@ -1,5 +1,6 @@
 (ns ui.events
   (:require [re-frame.core :as rf :refer [debug]]
+            [re-frame.std-interceptors :refer [db-handler->interceptor]]
             [ui.db :as db]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12,11 +13,18 @@
       (vec (concat event
                    [middlewares]
                    handler)))))
+(def draw-line
+  (db-handler->interceptor
+    (fn [db _]
+      (.log js/console
+        "%c                       "
+        "border-bottom: 5px solid green")
+      db)))
 
 ; Defines what middleware to inject
 (def register-event-handler
   (partial inject-middleware
-    [debug]))
+    [draw-line debug]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Event handlers
