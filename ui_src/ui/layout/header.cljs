@@ -1,4 +1,4 @@
-(ns ui.views.header)
+(ns ui.layout.header)
 
 (defn header []
   [:header {:class "ui__header"}])

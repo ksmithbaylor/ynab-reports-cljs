@@ -5,7 +5,7 @@
             [devtools.core :as devtools]
             [ui.events :as events]
             [ui.subs :as subs]
-            [ui.views.core :refer [app]]))
+            [ui.layout.core :refer [app]]))
 
 ; This flag gets turned on during development
 (when goog.DEBUG

@@ -1,4 +1,4 @@
-(ns ui.views.main
+(ns ui.layout.main
   (:require [re-frame.core :as rf]
             [ui.pages.preferences :refer [preferences]]))
 

@@ -1,4 +1,4 @@
-(ns ui.views.sidebar
+(ns ui.layout.sidebar
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
             [cljsjs.antd])
