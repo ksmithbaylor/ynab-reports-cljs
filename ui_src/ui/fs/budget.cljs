@@ -1,7 +1,7 @@
 (ns ui.fs.budget)
 
 (def ^:private fs (js/require "fs"))
-(def ^:private glob ((js/require "glob-fs")))
+(def ^:private glob (js/require "glob"))
 
 (defn- most-recent-file
   [files]
@@ -16,10 +16,8 @@
 (defn find-latest-yfull
   [location cb]
   (let [search (str location "/**/*.yfull")]
-    (.readdir glob search #js {:cwd "/"}
+    (glob search
       (fn [err files]
         (if (some? err)
           (cb err nil)
-          (let [absolute-paths (map (partial str "/") files)
-                latest (most-recent-file absolute-paths)]
-            (cb nil latest)))))))
+          (cb nil (most-recent-file files)))))))
