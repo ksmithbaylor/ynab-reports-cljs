@@ -7,7 +7,8 @@
     "watch-electron": "sleep 20 && nodemon -w resources/main.js --exec electron .",
     "less": "less-watch-compiler resources/public/less resources/public/css main.less",
     "figwheel": "rlwrap lein trampoline figwheel frontend-dev",
-    "start": "run-p -l build-electron watch-electron less"
+    "lein-repl": "(echo $'(use \\'figwheel-sidecar.repl-api)\\n(start-figwheel!)\\n(cljs-repl)' && cat) | lein repl",
+    "start": "run-p -l build-electron watch-electron less figwheel"
   },
   "devDependencies": {
     "electron": "^1.6.6",

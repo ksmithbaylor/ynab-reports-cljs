@@ -24,7 +24,8 @@
   [app]
   (.getElementById js/document "app-container"))
 
-#_(do
+(comment
+  (do
     (use 'figwheel-sidecar.repl-api)
     (start-figwheel!)
-    (cljs-repl))
+    (cljs-repl)))
