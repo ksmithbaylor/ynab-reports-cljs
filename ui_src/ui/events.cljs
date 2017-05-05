@@ -23,13 +23,6 @@
   (fn [_ _]
     db/initial-state))
 
-(rf/reg-event-db :append
-  standard-middleware
-  (fn [db [_ new-str]]
-    (assoc db :text
-      (str (:text db)
-           new-str))))
-
 (rf/reg-event-fx :set-budget-location
   standard-middleware
   (fn [world [_ location]]
