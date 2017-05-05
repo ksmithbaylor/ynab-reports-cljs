@@ -1,27 +1,12 @@
-(ns ui.events
-  (:require [re-frame.core :as rf :refer [debug]]
-            [ui.util.reframe :refer [draw-line]]
+(ns ui.events.budget-file
+  (:require [re-frame.core :as rf]
+            [ui.util.reframe :refer [standard-middleware
+                                     register-setter]]
             [ui.fs.budget :refer [find-latest-yfull]]
             [ui.db :as db]))
 
-(def standard-middleware
-  [draw-line
-   debug])
-
-(defn register-setter
-  ([db-key-path event]
-   (rf/reg-event-db event
-     standard-middleware
-     (fn [db [_ arg]]
-       (assoc-in db db-key-path arg)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Event handlers
-
-(rf/reg-event-db :initialize
-  standard-middleware
-  (fn [_ _]
-    db/initial-state))
+(register-setter [:budget :file :yfull]    :set-budget-yfull)
+(register-setter [:budget :file :modified] :set-budget-yfull-modified)
 
 (rf/reg-event-fx :set-budget-location
   standard-middleware
@@ -38,13 +23,6 @@
     {:alert "Invalid budget location"
      :dispatch [:set-budget-location nil]}))
 
-(register-setter [:page]                   :navigate)
-(register-setter [:budget :file :yfull]    :set-budget-yfull)
-(register-setter [:budget :file :modified] :set-budget-yfull-modified)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Effects
-
 (rf/reg-fx :find-latest-yfull
   (fn [location]
     (find-latest-yfull location
@@ -54,7 +32,3 @@
           (do
             (rf/dispatch [:set-budget-yfull file])
             (rf/dispatch [:set-budget-yfull-modified modified])))))))
-
-(rf/reg-fx :alert
-  (fn [message]
-    (js/alert message)))
