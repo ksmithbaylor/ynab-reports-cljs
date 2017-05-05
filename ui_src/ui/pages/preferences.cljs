@@ -1,7 +1,7 @@
 (ns ui.pages.preferences
   (:require [re-frame.core :as rf]
             [reagent.core :as r])
-  (:require-macros [ui.helpers.antd :refer [antd->reagent]]))
+  (:require-macros [ui.util.antd :refer [antd->reagent]]))
 
 (def ^:private electron (js/require "electron"))
 (def ^:private dialog (aget electron "remote" "dialog"))

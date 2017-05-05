@@ -1,4 +1,4 @@
-(ns ui.helpers.reframe
+(ns ui.util.reframe
   (:require [re-frame.std-interceptors :refer [db-handler->interceptor]]))
 
 (def draw-line
