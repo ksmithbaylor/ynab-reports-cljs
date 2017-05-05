@@ -14,16 +14,14 @@
 (defn check-and-throw
   "throw an exception if db doesn't match the spec"
   [a-spec db]
-  (println (str db) "conforms:" (s/valid? a-spec db))
-  (println (s/conform a-spec db))
   (when-not (s/valid? a-spec db)
-    (throw (ex-info (str "spec check failed: " (s/explain-str a-spec db)) {}))))
+    (throw (ex-info (str "Invalid db: " (s/explain-str a-spec db)) {}))))
 
-(def check-spec (after (partial check-and-throw :ui.db/db)))
+(def check-db-spec (after (partial check-and-throw :ui.db/db)))
 
 (def standard-middleware
   [draw-line
-   check-spec
+   check-db-spec
    debug])
 
 (defn register-setter
