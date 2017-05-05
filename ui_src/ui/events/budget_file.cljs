@@ -27,7 +27,7 @@
   (fn [location]
     (find-latest-yfull location
       (fn [err {:keys [file modified]}]
-        (if (some? err)
+        (if (or (some? err) (nil? file))
           (rf/dispatch [:set-budget-location-failure])
           (do
             (rf/dispatch [:set-budget-yfull file])
