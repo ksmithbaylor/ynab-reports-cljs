@@ -1,26 +1,25 @@
 (ns ui.fs.budget)
 
-(def fs (js/require "fs"))
-(def glob ((js/require "glob-fs")))
+(def ^:private fs (js/require "fs"))
+(def ^:private glob ((js/require "glob-fs")))
 
-(defn all-budget-files
-  [budget-dir]
-  (let [search (str budget-dir "/**/*.yfull")
-        files (.readdirSync glob search #js {:cwd "/"})]
-    (map (partial str "/") files)))
-
-(defn most-recent-file
+(defn- most-recent-file
   [files]
   (let [stats (map #(.statSync fs %1) files)
         times (map #(.-mtime %1) stats)
-        files-with-times (map (fn [file time]
-                                {:file file :time time})
+        files-with-times (map (fn [file modified]
+                                {:file file :modified modified})
                               files
                               times)]
-    (apply max-key :time files-with-times)))
+    (apply max-key :modified files-with-times)))
 
-(defn latest-budget-file
-  [budget-dir]
-  (-> budget-dir
-      all-budget-files
-      most-recent-file))
+(defn find-latest-yfull
+  [location cb]
+  (let [search (str location "/**/*.yfull")]
+    (.readdir glob search #js {:cwd "/"}
+      (fn [err files]
+        (if (some? err)
+          (cb err nil)
+          (let [absolute-paths (map (partial str "/") files)
+                latest (most-recent-file absolute-paths)]
+            (cb nil latest)))))))

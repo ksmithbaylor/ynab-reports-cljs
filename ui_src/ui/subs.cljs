@@ -5,3 +5,7 @@
 ; Expose all top-level db keys as subscriptions
 (doseq [key (keys initial-state)]
   (rf/reg-sub key key))
+
+(rf/reg-sub :budget-location       #(get-in %1 [:budget :file :location]))
+(rf/reg-sub :budget-yfull-file     #(get-in %1 [:budget :file :yfull]))
+(rf/reg-sub :budget-yfull-modified #(get-in %1 [:budget :file :modified]))
