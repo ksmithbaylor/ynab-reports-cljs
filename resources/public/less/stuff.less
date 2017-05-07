@@ -1,9 +1,23 @@
 .ui__header {
-  background-color: rgb(102, 165, 210);
+  background-color: white;
+  padding: 12px 20px;
+  line-height: 1em;
+  box-shadow: 0 7px 7px rgba(0,0,0,.15);
+  -webkit-app-region: drag;
+
+  .ynab {
+    color: @ynab-title;
+    font: 900 40px "Sense";
+  }
+
+  .helper {
+    color: @ynab-light-bg;
+    font: 500 40px "Sense";
+  }
 }
 
 .ui__sidebar {
-  background-color: rgb(0, 0, 0);
+  background-color: @ynab-dark-bg;
 }
 
 .ui__main {

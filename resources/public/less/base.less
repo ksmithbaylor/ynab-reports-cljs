@@ -6,3 +6,31 @@
   width: 100px;
   margin-left: 5px;
 }
+
+html {
+  background-color: white;
+  user-select: none;
+  cursor: default;
+}
+
+body {
+  padding-top: 6px;
+
+  &.fullscreen {
+    padding-top: 0px;
+  }
+}
+
+@font-face {
+    font-weight: 900;
+    font-style: normal;
+    font-family: 'Sense';
+    src: local('Sense'),url("../font/sense_black.ttf");
+}
+
+@font-face {
+    font-weight: 500;
+    font-style: normal;
+    font-family: 'Sense';
+    src: local('Sense'),url("../font/sense_regular.ttf");
+}

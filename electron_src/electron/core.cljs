@@ -9,10 +9,11 @@
 (defn init-browser []
   (reset! main-window
           (browser-window.
-            (clj->js {:width 800 :height 600})))
+            (clj->js {:width 800 :height 600 :titleBarStyle "hidden"})))
 
   ; Path is relative to the compiled js file (main.js in our case)
   (.loadURL @main-window (str "file://" js/__dirname "/public/index.html"))
+  (.setSheetOffset @main-window 70)
   (.openDevTools (.-webContents @main-window))
   (.log js/console "App initialized!")
 

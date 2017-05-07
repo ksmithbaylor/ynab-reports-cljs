@@ -7,6 +7,12 @@
             [ui.subs :as subs]
             [ui.layout.core :refer [app]]))
 
+(def win (.getCurrentWindow (.-remote (js/require "electron"))))
+(.on win "enter-full-screen"
+  #(.add (aget js/document "body" "classList") "fullscreen"))
+(.on win "leave-full-screen"
+  #(.remove (aget js/document "body" "classList") "fullscreen"))
+
 ; This flag gets turned on during development
 (when goog.DEBUG
   (enable-console-print!)
