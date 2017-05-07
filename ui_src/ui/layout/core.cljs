@@ -4,7 +4,7 @@
             [ui.layout.main :refer [main]]))
 
 (defn app []
-  [:div {:class "ui"}
+  [:div.ui
     [header]
     [sidebar]
     [main]])

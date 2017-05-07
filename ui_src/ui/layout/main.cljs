@@ -8,5 +8,5 @@
 (defn main []
   (let [page @(rf/subscribe [:page])
         component (routes page)]
-    [:main {:class "ui__main"}
+    [:main.ui__main
       [component]]))

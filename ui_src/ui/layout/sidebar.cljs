@@ -8,7 +8,7 @@
                Menu.Item)
 
 (defn sidebar []
-  [:aside {:class "ui__sidebar"}
+  [:aside.ui__sidebar
     [Menu {:theme "dark"
            :mode "inline"
            :selectedKeys [(name @(rf/subscribe [:page]))]
