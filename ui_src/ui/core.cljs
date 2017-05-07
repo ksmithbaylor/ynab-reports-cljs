@@ -30,6 +30,11 @@
   [app]
   (.getElementById js/document "app-container"))
 
+(.add
+  (.-classList
+    (.getElementById js/document "preloader"))
+  "fulfilled")
+
 (comment
   (do
     (use 'figwheel-sidecar.repl-api)
