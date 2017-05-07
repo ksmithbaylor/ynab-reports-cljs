@@ -26,10 +26,8 @@
   [app]
   (.getElementById js/document "app-container"))
 
-(.add
-  (.-classList
-    (.getElementById js/document "preloader"))
-  "fulfilled")
+(let [preloader (.getElementById js/document "preloader")]
+  (.add (.-classList preloader) "fulfilled"))
 
 (comment
   (do

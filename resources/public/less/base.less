@@ -39,8 +39,10 @@ body {
 #preloader {
   opacity: 1;
   transition: opacity .75s ease-in-out;
+  z-index: 999;
 
   &.fulfilled {
     opacity: 0;
+    z-index: -1;
   }
 }
