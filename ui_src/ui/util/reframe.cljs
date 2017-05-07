@@ -1,6 +1,7 @@
 (ns ui.util.reframe
   (:require [re-frame.core :as rf :refer [after debug]]
             [re-frame.std-interceptors :refer [db-handler->interceptor]]
+            [ui.db :refer [initial-state]]
             [cljs.spec :as s]))
 
 (def draw-line
@@ -25,8 +26,17 @@
    debug])
 
 (defn register-setter
-  ([db-key-path event]
-   (rf/reg-event-db event
-     standard-middleware
-     (fn [db [_ arg]]
-       (assoc-in db db-key-path arg)))))
+  [db-key-path event]
+  (rf/reg-event-db event
+    standard-middleware
+    (fn [db [_ arg]]
+      (assoc-in db db-key-path arg))))
+
+(defn register-reset
+  [db-key-path event]
+  (rf/reg-event-db event
+    standard-middleware
+    (fn [db _]
+      (assoc-in db
+        db-key-path
+        (get-in initial-state db-key-path)))))

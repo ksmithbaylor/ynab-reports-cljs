@@ -8,7 +8,9 @@
 
 (defn- choose-location []
   (.showOpenDialog dialog
-    #(rf/dispatch [:set-budget-location (first %1)])))
+    (fn [[location]]
+      (when location
+        (rf/dispatch [:set-budget-location location])))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Components
