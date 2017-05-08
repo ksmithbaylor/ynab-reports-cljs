@@ -57,4 +57,4 @@
 (register-reset  [:budget :raw-data] :reset-budget-raw-data)
 
 (register-setter [:budget :file :modified] :set-budget-yfull-modified)
-(register-reset  [:budget :file] :reset-budget-file)
+(register-reset  [:budget] :reset-budget-file)
