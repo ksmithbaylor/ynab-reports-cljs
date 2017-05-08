@@ -1,9 +1,11 @@
 (ns ui.layout.main
   (:require [re-frame.core :as rf]
+            [ui.pages.summary :refer [summary]]
             [ui.pages.preferences :refer [preferences]]))
 
 (def routes
-  {:preferences preferences})
+  {:summary summary
+   :preferences preferences})
 
 (defn main []
   (let [page @(rf/subscribe [:page])

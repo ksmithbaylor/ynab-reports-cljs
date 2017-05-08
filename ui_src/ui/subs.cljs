@@ -9,3 +9,4 @@
 (rf/reg-sub :budget-location       #(get-in %1 [:budget :file :location]))
 (rf/reg-sub :budget-yfull-file     #(get-in %1 [:budget :file :yfull]))
 (rf/reg-sub :budget-yfull-modified #(get-in %1 [:budget :file :modified]))
+(rf/reg-sub :transactions          #(get-in %1 [:budget :raw-data "transactions"]))

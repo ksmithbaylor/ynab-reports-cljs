@@ -22,5 +22,5 @@
 (s/def ::file     (strict-keys ::location ::yfull ::modified))
 (s/def ::raw-data (s/nilable map?))
 (s/def ::budget   (strict-keys ::file ::raw-data))
-(s/def ::page     #{:preferences})
+(s/def ::page     #{:summary :preferences})
 (s/def ::db       (strict-keys ::budget ::page))

@@ -13,4 +13,5 @@
            :mode "inline"
            :selectedKeys [(name @(rf/subscribe [:page]))]
            :onClick #(rf/dispatch [:navigate (keyword (.-key %1))])}
+      [Menu-Item {:key :summary} "Summary"]
       [Menu-Item {:key :preferences} "Preferences"]]])
