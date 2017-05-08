@@ -5,7 +5,8 @@
 (defonce initial-state
   {:budget {:file {:location nil
                    :yfull    nil
-                   :modified nil}}
+                   :modified nil}
+            :raw-data nil}
    :page :preferences})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -19,6 +20,7 @@
                            #(clojure.string/ends-with? % ".yfull"))))
 (s/def ::modified (s/nilable #(instance? js/Date %)))
 (s/def ::file     (strict-keys ::location ::yfull ::modified))
-(s/def ::budget   (strict-keys ::file))
+(s/def ::raw-data (s/nilable map?))
+(s/def ::budget   (strict-keys ::file ::raw-data))
 (s/def ::page     #{:preferences})
 (s/def ::db       (strict-keys ::budget ::page))

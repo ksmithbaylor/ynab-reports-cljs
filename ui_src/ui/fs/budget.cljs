@@ -21,3 +21,13 @@
         (if (some? err)
           (cb err nil)
           (cb nil (most-recent-file files)))))))
+
+(defn read-yfull-data
+  [path cb]
+  (.readFile fs path
+    (fn [err buffer]
+      (if (or (some? err) (nil? buffer))
+        (cb err nil)
+        (cb nil (->> (.toString buffer)
+                     (.parse js/JSON)
+                     (js->clj)))))))
