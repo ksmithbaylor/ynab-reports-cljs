@@ -3,6 +3,9 @@
 (def ^:private fs (js/require "fs"))
 (def ^:private glob (js/require "glob"))
 
+(defn- async-parse-json [buffer]
+  (.json (js/Response. buffer)))
+
 (defn- most-recent-file
   [files]
   (let [stats (map #(.statSync fs %1) files)
@@ -28,6 +31,7 @@
     (fn [err buffer]
       (if (or (some? err) (nil? buffer))
         (cb err nil)
-        (cb nil (->> (.toString buffer)
-                     (.parse js/JSON)
-                     (js->clj)))))))
+        (-> (.resolve js/Promise buffer)
+            (.then async-parse-json)
+            (.then js->clj)
+            (.then #(cb nil %)))))))
