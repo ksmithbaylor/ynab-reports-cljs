@@ -3,6 +3,7 @@
             [re-frame.core :as rf]
             [re-frisk.core :refer [enable-re-frisk!]]
             [devtools.core :as devtools]
+            [ui.fs.persistence]
             [ui.events.core :as events]
             [ui.subs :as subs]
             [ui.layout.core :refer [app]]))
