@@ -4,7 +4,9 @@
 (def ^:private glob (js/require "glob"))
 
 (defn- async-parse-json [buffer]
-  (.json (js/Response. buffer)))
+  (-> (.resolve js/Promise buffer)
+      (.then #(js/Response. %))
+      (.then #(.json %))))
 
 (defn- most-recent-file
   [files]
@@ -31,7 +33,6 @@
     (fn [err buffer]
       (if (or (some? err) (nil? buffer))
         (cb err nil)
-        (-> (.resolve js/Promise buffer)
-            (.then async-parse-json)
+        (-> (async-parse-json buffer)
             (.then js->clj)
             (.then #(cb nil %)))))))
