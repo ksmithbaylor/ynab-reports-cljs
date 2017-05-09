@@ -7,7 +7,7 @@
                    :yfull    nil
                    :modified nil}
             :raw-data nil}
-   :page :preferences})
+   :page :summary})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Strict specs for the db shape
