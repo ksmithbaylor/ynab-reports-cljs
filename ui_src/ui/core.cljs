@@ -12,13 +12,17 @@
       (enable-console-print!)
       (devtools/install! [:formatters :hints :async])
       (enable-re-frisk!))
+    (js/console.log
+      (str "%c" (apply str (repeat 78 " ")))
+      "background-color: #13323c")
     (read-from-disk
       (fn [err db]
         (when (some? err)
           (.error js.console err))
         (if db
           (rf/dispatch [:deeplink db])
-          (rf/dispatch [:initialize]))))))
+          (rf/dispatch [:initialize]))))
+    nil))
 
 (comment
   (do
