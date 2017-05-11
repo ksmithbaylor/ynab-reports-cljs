@@ -14,4 +14,5 @@
            :selectedKeys [(name @(rf/subscribe [:page]))]
            :onClick #(rf/dispatch [:navigate (keyword (.-key %1))])}
       [Menu-Item {:key :summary} "Summary"]
+      [Menu-Item {:key :progress-bars} "Progress Bars"]
       [Menu-Item {:key :preferences} "Preferences"]]])
