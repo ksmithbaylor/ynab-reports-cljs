@@ -2,6 +2,7 @@
   (:require [re-frame.core :as rf :refer [after debug]]
             [re-frame.std-interceptors :refer [db-handler->interceptor]]
             [ui.db :refer [initial-state]]
+            [ui.fs.persistence :refer [write-to-disk]]
             [cljs.spec :as s]))
 
 (def draw-line
@@ -19,10 +20,16 @@
     (throw (ex-info (str "Invalid db: " (s/explain-str a-spec db)) {}))))
 
 (def check-db-spec (after (partial check-and-throw :ui.db/db)))
+(def persist!
+  (after
+    (fn [db]
+      (write-to-disk db
+        #(when % (.error js/console %))))))
 
 (def standard-middleware
   [draw-line
    check-db-spec
+   persist!
    debug])
 
 (defn register-setter

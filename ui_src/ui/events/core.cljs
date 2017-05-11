@@ -10,8 +10,8 @@
 
 (rf/reg-event-db :initialize
   standard-middleware
-  (fn [_ _]
-    db/initial-state))
+  (fn [_ [_ state]]
+    (or state db/initial-state)))
 
 (register-setter [:page] :navigate)
 

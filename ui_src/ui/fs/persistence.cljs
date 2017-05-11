@@ -32,11 +32,10 @@
 (defn serialize [db]
   (select-paths db
     [:budget :file :location]
-    [:budget :file :modified]
-    [:page]))
+    [:budget :file :modified]))
 
 (defn deserialize [db]
-  (recursive-merge db initial-state))
+  (recursive-merge initial-state db))
 
 (def last-written (atom nil))
 
@@ -49,15 +48,17 @@
           (if (= payload @last-written)
             (cb nil)
             (let [payload-str (pr-str payload)]
+              (println "writing to disk:" payload-str)
               (.writeFile fs db-file payload-str
                 (fn [err]
-                  (println "wrote file")
                   (reset! last-written payload)
                   (cb (or err nil)))))))))))
 
 (defn read-from-disk [cb]
   (.readFile fs db-file
     (fn [err buffer]
-      (if (or (some? err) (nil? buffer))
-        (cb err buffer)
-        (cb nil (read-string (.toString buffer)))))))
+      (if (some? err)
+        (cb err nil)
+        (cb nil (->> (.toString buffer)
+                     read-string
+                     deserialize))))))
