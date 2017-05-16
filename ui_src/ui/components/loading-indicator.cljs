@@ -1,4 +1,5 @@
 (ns ui.components.loading-indicator
+  (:require [cljsjs.antd])
   (:require-macros [ui.util.antd :refer [antd->reagent]]))
 
 (antd->reagent Spin)

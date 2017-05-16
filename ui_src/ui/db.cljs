@@ -4,12 +4,18 @@
   (:require-macros [ui.util.spec :refer [strict-keys]]))
 
 (defonce initial-state
-  {:budget {:raw-data    nil
-            :active-data nil
-            :file        {:location nil
-                          :yfull    nil
-                          :modified nil}}
-   :page :summary})
+  {:budget  {:raw-data    nil
+             :active-data nil
+             :file        {:location nil
+                           :yfull    nil
+                           :modified nil}}
+   :page    :summary
+   :loading {:background  true
+             :total       true
+             :single-page {:summary       false
+                           :preferences   false
+                           :progress-bars false}
+             :message     "testing"}})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Strict specs for the db shape
@@ -25,5 +31,11 @@
 (s/def ::raw-data    (s/nilable map?))
 (s/def ::active-data (s/nilable map?))
 (s/def ::budget      (strict-keys ::file ::raw-data ::active-data))
-(s/def ::page        #{:summary :preferences :progress-bars})
-(s/def ::db          (strict-keys ::budget ::page))
+(def pages #{:summary :preferences :progress-bars})
+(s/def ::page        pages)
+(s/def ::background  boolean?)
+(s/def ::total       boolean?)
+(s/def ::single-page map?)
+(s/def ::message     string?)
+(s/def ::loading     (strict-keys ::background ::total ::single-page ::message))
+(s/def ::db          (strict-keys ::budget ::page ::loading))

@@ -1,6 +1,7 @@
 (ns ui.pages.preferences
   (:require [re-frame.core :as rf]
-            [reagent.core :as r])
+            [reagent.core :as r]
+            [cljsjs.antd])
   (:require-macros [ui.util.antd :refer [antd->reagent]]))
 
 (def ^:private electron (js/require "electron"))

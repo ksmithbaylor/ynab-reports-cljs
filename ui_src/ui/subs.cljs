@@ -5,9 +5,14 @@
             [goog.string :as gs]
             [goog.string.format]))
 
-; Expose all top-level db keys as subscriptions
-(doseq [key (keys initial-state)]
-  (rf/reg-sub key key))
+(rf/reg-sub :page                  #(get-in % [:page]))
+
+(rf/reg-sub :loading-message       #(get-in % [:loading :message]))
+(rf/reg-sub :loading-background    #(get-in % [:loading :background]))
+(rf/reg-sub :loading-total         #(get-in % [:loading :total]))
+(rf/reg-sub :loading-page
+  (fn [db [_ page]]
+    (get-in db [:loading :single-page page])))
 
 (rf/reg-sub :budget-location       #(get-in % [:budget :file :location]))
 (rf/reg-sub :budget-yfull-file     #(get-in % [:budget :file :yfull]))

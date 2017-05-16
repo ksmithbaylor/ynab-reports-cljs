@@ -14,6 +14,8 @@
 
 (rf/reg-fx :find-latest-yfull
   (fn [location]
+    (rf/dispatch [:set-loading-message "Loading budget..."])
+    (rf/dispatch [:set-loading :background true])
     (find-latest-yfull location
       (fn [err {:keys [file modified]}]
         (if (or (some? err) (nil? file))
@@ -45,7 +47,9 @@
           (rf/dispatch [:read-yfull-data-failure])
           (do
             (rf/dispatch [:set-budget-raw-data raw-data])
-            (rf/dispatch [:set-budget-active-data active-data])))))))
+            (rf/dispatch [:set-budget-active-data active-data])
+            (rf/dispatch [:set-loading :background false])
+            (rf/dispatch [:set-loading-message ""])))))))
 
 (register-setter [:budget :raw-data]    :set-budget-raw-data)
 (register-setter [:budget :active-data] :set-budget-active-data)
