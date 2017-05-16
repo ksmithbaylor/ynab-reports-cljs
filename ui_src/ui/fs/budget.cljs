@@ -1,4 +1,5 @@
-(ns ui.fs.budget)
+(ns ui.fs.budget
+  (:require [ui.budget.core :as b]))
 
 (def ^:private fs (js/require "fs"))
 (def ^:private glob (js/require "glob"))
@@ -34,5 +35,6 @@
       (if (or (some? err) (nil? buffer))
         (cb err nil)
         (-> (async-parse-json buffer)
-            (.then js->clj)
+            (.then #(js->clj % :keywordize-keys true))
+            (.then #(identity [% (b/active-data %)]))
             (.then #(cb nil %)))))))

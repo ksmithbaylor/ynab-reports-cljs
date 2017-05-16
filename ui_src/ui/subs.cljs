@@ -1,12 +1,33 @@
 (ns ui.subs
   (:require [re-frame.core :as rf]
-            [ui.db :refer [initial-state]]))
+            [ui.db :refer [initial-state]]
+            [ui.budget.core :as b]
+            [goog.string :as gs]
+            [goog.string.format]))
 
 ; Expose all top-level db keys as subscriptions
 (doseq [key (keys initial-state)]
   (rf/reg-sub key key))
 
-(rf/reg-sub :budget-location       #(get-in %1 [:budget :file :location]))
-(rf/reg-sub :budget-yfull-file     #(get-in %1 [:budget :file :yfull]))
-(rf/reg-sub :budget-yfull-modified #(get-in %1 [:budget :file :modified]))
-(rf/reg-sub :transactions          #(get-in %1 [:budget :raw-data "transactions"]))
+(rf/reg-sub :budget-location       #(get-in % [:budget :file :location]))
+(rf/reg-sub :budget-yfull-file     #(get-in % [:budget :file :yfull]))
+(rf/reg-sub :budget-yfull-modified #(get-in % [:budget :file :modified]))
+(rf/reg-sub :raw-data              #(get-in % [:budget :raw-data]))
+(rf/reg-sub :active-data           #(get-in % [:budget :active-data]))
+
+(rf/reg-sub :transactions
+  :<- [:active-data]
+  b/transactions)
+
+(rf/reg-sub :categories
+  :<- [:active-data]
+  b/categories)
+
+(rf/reg-sub :budget-this-month
+  :<- [:active-data]
+  (fn [data _]
+    (let [today (js/Date.)
+          m (+ 1 (.getMonth today))
+          y (.getFullYear today)
+          date (gs/format "%d-%02d" y m)]
+      (b/monthly-budget data date))))

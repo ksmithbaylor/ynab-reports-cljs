@@ -40,12 +40,15 @@
 (rf/reg-fx :read-yfull-data
   (fn [path]
     (read-yfull-data path
-      (fn [err clj-data]
-        (if (or (some? err) (nil? clj-data))
+      (fn [err [raw-data active-data]]
+        (if (or (some? err) (nil? raw-data))
           (rf/dispatch [:read-yfull-data-failure])
-          (rf/dispatch [:set-budget-raw-data clj-data]))))))
+          (do
+            (rf/dispatch [:set-budget-raw-data raw-data])
+            (rf/dispatch [:set-budget-active-data active-data])))))))
 
-(register-setter [:budget :raw-data] :set-budget-raw-data)
+(register-setter [:budget :raw-data]    :set-budget-raw-data)
+(register-setter [:budget :active-data] :set-budget-active-data)
 
 (rf/reg-event-fx :read-yfull-data-failure
   standard-middleware
