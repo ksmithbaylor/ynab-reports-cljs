@@ -5,7 +5,7 @@
 (def ^:private glob (js/require "glob"))
 
 (defn- async-parse-json [buffer]
-  (-> (.resolve js/Promise buffer)
+  (-> (js/Promise.resolve buffer)
       (.then #(js/Response. %))
       (.then #(.json %))))
 

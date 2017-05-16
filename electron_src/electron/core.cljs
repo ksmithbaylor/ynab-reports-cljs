@@ -15,7 +15,7 @@
   (.loadURL @main-window (str "file://" js/__dirname "/public/index.html"))
   (.setSheetOffset @main-window 70)
   (.openDevTools (.-webContents @main-window))
-  (.log js/console "App initialized!")
+  (js/console.log "App initialized!")
 
   (.on @main-window "closed"
     #(reset! main-window nil)))

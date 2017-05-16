@@ -30,7 +30,7 @@
     {:start-app nil}))
 
 (defn clear-preloader! []
-  (let [preloader (.getElementById js/document "preloader")]
+  (let [preloader (js/document.getElementById "preloader")]
     (.add (.-classList preloader) "fulfilled")))
 
 (defn attach-fullscreen-handlers! []
@@ -46,5 +46,5 @@
     (rf/clear-subscription-cache!)
     (r/render
       [app]
-      (.getElementById js/document "app-container"))
+      (js/document.getElementById "app-container"))
     (clear-preloader!)))
