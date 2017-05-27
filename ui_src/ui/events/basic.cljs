@@ -1,6 +1,6 @@
 (ns ui.events.basic
   (:require [re-frame.core :as rf]
-            [ui.util.reframe :refer [register-setter]])
+            [ui.helpers.reframe :refer [register-setter]])
   (:require-macros [com.rpl.specter :refer [setval]]))
 
 (register-setter [:page] :navigate)

@@ -1,4 +1,4 @@
-(ns ui.util.spec
+(ns ui.helpers.spec
   (:require [cljs.spec :as s]))
 
 (defmacro strict-keys [& keys]

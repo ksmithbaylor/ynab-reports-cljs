@@ -3,7 +3,7 @@
             [reagent.core :as r]
             [ui.db :as db]
             [ui.layout.core :refer [app]]
-            [ui.util.reframe :refer [standard-middleware
+            [ui.helpers.reframe :refer [standard-middleware
                                      register-setter]]))
 
 (rf/reg-event-fx :initialize

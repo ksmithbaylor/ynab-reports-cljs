@@ -1,7 +1,7 @@
 (ns ui.layout.header
   (:require [re-frame.core :as rf]
             [cljsjs.antd])
-  (:require-macros [ui.util.antd :refer [antd->reagent]]))
+  (:require-macros [ui.helpers.antd :refer [antd->reagent]]))
 
 (antd->reagent Spin)
 

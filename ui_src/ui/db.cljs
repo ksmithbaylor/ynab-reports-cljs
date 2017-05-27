@@ -1,7 +1,7 @@
 (ns ui.db
   (:require [cljs.spec :as s]
             [clojure.string :refer [starts-with? ends-with?]])
-  (:require-macros [ui.util.spec :refer [strict-keys]]))
+  (:require-macros [ui.helpers.spec :refer [strict-keys]]))
 
 (defonce initial-state
   {:budget        {:raw-data              nil

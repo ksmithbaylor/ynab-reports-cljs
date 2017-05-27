@@ -1,4 +1,4 @@
-(ns ui.util.reframe
+(ns ui.helpers.reframe
   (:require [re-frame.core :as rf :refer [after]]
             [re-frame.interceptor :refer [->interceptor get-effect get-coeffect]]
             [re-frame.std-interceptors :refer [db-handler->interceptor]]

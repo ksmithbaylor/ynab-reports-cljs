@@ -1,4 +1,4 @@
-(ns ui.util.antd
+(ns ui.helpers.antd
   (:require [reagent.core :as r]))
 
 (defn- has-dots? [sym]
