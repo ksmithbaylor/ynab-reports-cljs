@@ -10,21 +10,21 @@
 (defn progress-bar []
   (fn [category budget]
     [:div
-      [:p "progress bar!"]
-      (debug "progress-bar -> category" category)]))
+      [:p (str "progress bar for " (:name category))]]))
 
 (defn progress-bars []
   (let [budget @(rf/subscribe [:budget-this-month])
-        categories @(rf/subscribe [:sub-categories])
-        selected-category-ids (r/atom [])]
+        categories @(rf/subscribe [:sub-categories])]
     (fn []
-      (let [selected-categories (doall
-                                  (filter #(get
-                                             (set @selected-category-ids)
-                                             (:entityId %))
-                                          categories))]
+      (let [selected-category-ids @(rf/subscribe [:progress-bars/selected-category-ids])
+            selected-categories (filter #(get selected-category-ids
+                                              (:entityId %))
+                                        categories)]
         [:div
-          [category-picker {:onChange #(reset! selected-category-ids (js->clj %))}]
+          [category-picker
+           {:selected selected-category-ids
+            :onChange #(rf/dispatch [:progress-bars/set-selected-category-ids
+                                     (set (js->clj %))])}]
           (for [category selected-categories]
             ^{:key (:entityId category)}
             [progress-bar category budget])]))))

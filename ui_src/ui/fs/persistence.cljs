@@ -31,7 +31,8 @@
 
 (defn serialize [db]
   (select-paths db
-    [:budget :file :location]))
+    [:budget :file :location]
+    [:progress-bars]))
 
 (defn deserialize [db]
   (recursive-merge initial-state db))

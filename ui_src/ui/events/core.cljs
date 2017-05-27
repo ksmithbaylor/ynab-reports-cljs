@@ -2,4 +2,5 @@
   (:require [re-frame.core :as rf]
             [ui.events.basic]
             [ui.events.boot]
-            [ui.events.budget-file]))
+            [ui.events.budget-file]
+            [ui.events.progress-bars]))

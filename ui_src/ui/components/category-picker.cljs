@@ -6,28 +6,23 @@
 
 (antd->reagent TreeSelect TreeSelect.TreeNode)
 
-(defn category-picker [{:keys [onChange]}]
+(defn category-picker []
   (let [master-categories @(rf/subscribe [:categories])
         outflow-categories (filter #(and (= "OUTFLOW" (:type %))
                                          (:deleteable %))
-                                   master-categories)
-        selected (r/atom #js [])]
-    (fn []
-      (let [num-selected (.-length @selected)
+                                   master-categories)]
+    (fn [{:keys [selected onChange]}]
+      (let [num-selected (count selected)
             main-label (str "Categories (" num-selected ")")]
         [:div.category-picker
           [TreeSelect {:treeCheckable true
                        :treeDefaultExpandAll true
                        :placeholder main-label
-                       :style {:width "100px"}
+                       :style {:width "110px"}
                        :dropdownMatchSelectWidth false
                        :dropdownStyle {:maxHeight "300px" :width "300px"}
-                       :maxTagTextLength 0
-                       :value @selected
-                       :onChange (fn [value label extra]
-                                   (reset! selected value)
-                                   (when onChange
-                                     (onChange value label extra)))
+                       :value (clj->js (vec selected))
+                       :onChange onChange
                        :multiple true}
             (for [master-category outflow-categories]
               [TreeSelect-TreeNode {:title (:name master-category)
