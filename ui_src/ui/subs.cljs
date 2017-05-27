@@ -28,6 +28,10 @@
   :<- [:active-data]
   b/categories)
 
+(rf/reg-sub :sub-categories
+  :<- [:active-data]
+  b/sub-categories)
+
 (rf/reg-sub :budget-this-month
   :<- [:active-data]
   (fn [data _]

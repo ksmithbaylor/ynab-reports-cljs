@@ -24,7 +24,16 @@
 
 (defn categories [data _]
   (when data
-    (:masterCategories data)))
+    (sort-by :sortableIndex (:masterCategories data))))
+
+(defn sub-categories [data _]
+  (when data
+    (sort-by :sortableIndex
+      (select [:masterCategories
+               sp/ALL
+               :subCategories
+               sp/ALL]
+              data))))
 
 (defn monthly-budget [data date]
   (when data
