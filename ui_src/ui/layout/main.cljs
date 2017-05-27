@@ -12,5 +12,4 @@
 (defn main []
   (let [page @(rf/subscribe [:page])
         component (routes page)]
-    [:main.ui__main
-      component]))
+    [:main.ui__main component]))
