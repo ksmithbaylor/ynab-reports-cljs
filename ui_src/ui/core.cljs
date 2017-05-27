@@ -6,26 +6,29 @@
             [ui.events.core :as events]
             [ui.subs :as subs]))
 
+(defn setup-debugging! []
+  (when goog.DEBUG
+    (enable-console-print!)
+    (devtools/install! [:formatters :hints :async])
+    (enable-re-frisk!)))
+
+(defn print-bar! []
+  (js/console.log
+    (str "%c" (apply str (repeat 78 " ")))
+    "background-color: #13323c"))
+
+(defn boot-application! []
+  (read-from-disk
+    (fn [err db]
+      (when (some? err)
+        (.error js.console err))
+      (if db
+        (rf/dispatch [:deeplink db])
+        (rf/dispatch [:initialize])))))
+
 (defonce setup
   (do
-    (when goog.DEBUG
-      (enable-console-print!)
-      (devtools/install! [:formatters :hints :async])
-      (enable-re-frisk!))
-    (js/console.log
-      (str "%c" (apply str (repeat 78 " ")))
-      "background-color: #13323c")
-    (read-from-disk
-      (fn [err db]
-        (when (some? err)
-          (.error js.console err))
-        (if db
-          (rf/dispatch [:deeplink db])
-          (rf/dispatch [:initialize]))))
+    (setup-debugging!)
+    (print-bar!)
+    (boot-application!)
     nil))
-
-(comment
-  (do
-    (use 'figwheel-sidecar.repl-api)
-    (start-figwheel!)
-    (cljs-repl)))

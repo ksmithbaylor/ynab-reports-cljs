@@ -19,6 +19,7 @@
 (rf/reg-sub :budget-yfull-modified #(get-in % [:budget :file :modified]))
 (rf/reg-sub :raw-data              #(get-in % [:budget :raw-data]))
 (rf/reg-sub :active-data           #(get-in % [:budget :active-data]))
+
 (rf/reg-sub :progress-bars/selected-category-ids
   #(get-in % [:progress-bars :selected-category-ids]))
 
