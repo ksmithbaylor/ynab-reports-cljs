@@ -50,7 +50,10 @@
                           (js/console.log "only before:" only-before)
                           (js/console.log "only after :" only-after)
                           (js/console.groupEnd))
-                      (js/console.log "no app-db changes caused by:" event))))
+                      (js/console.log "no app-db changes caused by:" event))
+                    (js/console.groupCollapsed "db")
+                    (js/console.log new-db)
+                    (js/console.groupEnd)))
                 (js/console.groupEnd)
                 context))))
 
