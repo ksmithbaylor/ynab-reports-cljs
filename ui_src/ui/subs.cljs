@@ -38,3 +38,8 @@
   :<- [:active-data]
   (fn [data _]
     (b/monthly-budget data (d/this-month))))
+
+(rf/reg-sub :transactions-this-month
+  :<- [:transactions]
+  (fn [transactions _]
+    (b/transactions-for-month transactions (d/this-month))))

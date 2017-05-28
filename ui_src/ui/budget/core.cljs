@@ -39,5 +39,16 @@
   (when data
     (select-one [:monthlyBudgets
                  (filter-by :month #(starts-with? % date))
-                 (sp/filterer #(-> % :month (starts-with? date)))]
+                 (sp/filterer #(-> % :month (starts-with? date)))
+                 sp/FIRST]
       data)))
+
+(defn transactions-for-month [transactions month]
+  (when transactions
+    (->> transactions
+      (filter #(starts-with? (:date %) month))
+      (map #(condp = (:subTransactions %)
+              nil %
+              [] %
+              (cons % (:subTransactions %))))
+      (flatten))))
