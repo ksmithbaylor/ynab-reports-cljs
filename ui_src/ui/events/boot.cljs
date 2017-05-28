@@ -4,7 +4,7 @@
             [ui.db :as db]
             [ui.layout.core :refer [app]]
             [ui.helpers.reframe :refer [standard-middleware
-                                     register-setter]]))
+                                        register-setter]]))
 
 (rf/reg-event-fx :initialize
   standard-middleware
@@ -22,7 +22,7 @@
   (fn [state]
     (when-let [location (get-in state [:budget :file :location])]
       (rf/dispatch [:set-budget-location location]))
-    (when-let [ids (get-in state [:progress-bars :selected-category-ids])] 
+    (when-let [ids (get-in state [:progress-bars :selected-category-ids])]
       (rf/dispatch [:progress-bars/set-selected-category-ids ids]))
     (rf/dispatch [:start-app])))
 
