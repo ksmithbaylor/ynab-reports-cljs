@@ -2,8 +2,7 @@
   (:require [re-frame.core :as rf]
             [ui.db :refer [initial-state]]
             [ui.budget.core :as b]
-            [goog.string :as gs]
-            [goog.string.format]))
+            [ui.helpers.dates :as d]))
 
 (rf/reg-sub :page                  #(get-in % [:page]))
 
@@ -38,8 +37,4 @@
 (rf/reg-sub :budget-this-month
   :<- [:active-data]
   (fn [data _]
-    (let [today (js/Date.)
-          m (+ 1 (.getMonth today))
-          y (.getFullYear today)
-          date (gs/format "%d-%02d" y m)]
-      (b/monthly-budget data date))))
+    (b/monthly-budget data (d/this-month))))
