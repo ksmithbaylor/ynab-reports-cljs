@@ -8,3 +8,4 @@ out
 .lein-repl-history
 resources/public/css/*.css
 .nrepl-port
+test/budget.json
