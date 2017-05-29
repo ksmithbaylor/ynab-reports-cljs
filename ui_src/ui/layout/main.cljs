@@ -10,6 +10,6 @@
    :progress-bars [#'progress-bars]})
 
 (defn main []
-  (let [page @(rf/subscribe [:page])
-        component (routes page)]
-    [:main.ui__main component]))
+  (when-not @(rf/subscribe [:loading-total])
+    [:main.ui__main
+      (routes @(rf/subscribe [:page]))]))

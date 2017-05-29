@@ -6,14 +6,13 @@
 (antd->reagent Spin)
 
 (defn header []
-  (let [loading @(rf/subscribe [:loading-background])
-        loading-message @(rf/subscribe [:loading-message])]
-    [:header.ui__header
-      [:h1
-        [:span.ynab "YNAB"]
-        " "
-        [:span.helper "Helper"]
-        (when loading
-          [:span.loading
-            [:span.message loading-message]
-            [Spin]])]]))
+  [:header.ui__header
+    [:h1
+      [:span.ynab "YNAB"]
+      " "
+      [:span.helper "Helper"]
+      (when (and @(rf/subscribe [:loading-background])
+                 (not @(rf/subscribe [:loading-total])))
+        [:span.loading
+          [:span.message @(rf/subscribe [:loading-message])]
+          [Spin]])]])

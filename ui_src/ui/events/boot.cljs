@@ -42,11 +42,14 @@
     (.on win "leave-full-screen"
       #(.remove (aget js/document "body" "classList") "fullscreen"))))
 
+(defn render-app! []
+  (r/render
+    [app]
+    (js/document.getElementById "app-container")))
+
 (rf/reg-fx :start-app
   (fn [_]
     (attach-fullscreen-handlers!)
     (rf/clear-subscription-cache!)
-    (r/render
-      [app]
-      (js/document.getElementById "app-container"))
+    (render-app!)
     (clear-preloader!)))

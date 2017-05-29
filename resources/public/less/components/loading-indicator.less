@@ -1,3 +1,19 @@
+#preloader, .preloader {
+  opacity: 1;
+  transition: opacity .75s ease-in-out,
+              z-index .76s ease-in-out;
+  z-index: 999;
+
+  &.half {
+    opacity: 0.7;
+  }
+
+  &.fulfilled {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
 .ant-spin-lg {
   .ant-spin-dot {
     width: 64px;
