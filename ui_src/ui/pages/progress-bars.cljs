@@ -19,7 +19,7 @@
     [:svg {:width w :height h}
       ; Border
       [:rect {:x 0 :y 0 :width w :height h
-              :style {:fill "#eee"
+              :style {:fill "#eeeeee"
                       :stroke "#555"
                       :stroke-width 3}}]
 
