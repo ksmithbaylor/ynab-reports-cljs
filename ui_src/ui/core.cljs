@@ -9,8 +9,7 @@
 (defn setup-debugging! []
   (when goog.DEBUG
     (enable-console-print!)
-    (devtools/install! [:formatters :hints :async])
-    (enable-re-frisk!)))
+    (devtools/install! [:formatters :hints :async])))
 
 (defn print-bar! []
   (js/console.log
