@@ -7,3 +7,10 @@
     (.plus
       (BigNumber. a)
       (BigNumber. b))))
+
+(defn dollars [amount]
+  (str "$"
+    (js/String.
+      (.toFixed
+        (js/Number. amount)
+        2))))

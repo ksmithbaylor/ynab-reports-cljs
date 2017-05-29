@@ -1,13 +1,74 @@
 (ns ui.pages.progress-bars
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
-            [clojure.pprint :refer [pprint]]
             [ui.components.category-picker :refer [category-picker]]
             [ui.helpers.money :as m]
             [ui.helpers.dates :as d]))
 
-(defn debug [label thing]
-  [:pre (str label ": \n" (with-out-str (pprint thing)))])
+(defn progress-bar-graph [w h spent budgeted days-so-far total-days]
+  (let [percent-through-month (/ days-so-far total-days)
+        percent-through-budget (/ spent budgeted)
+        under-budget (> percent-through-month percent-through-budget)
+        projected (/ spent percent-through-month)
+        projected-percent (/ projected budgeted)
+        split-x (* w percent-through-month)
+        split-y (- h (* (/ 2 3) h percent-through-budget))
+        projected-y (- h (* (/ 2 3) h projected-percent))
+        budget-y (- h (* (/ 2 3) h percent-through-month))
+        color (if under-budget "green" "red")]
+    [:svg {:width w :height h}
+      ; Border
+      [:rect {:x 0 :y 0 :width w :height h
+              :style {:fill "#eee"
+                      :stroke "#555"
+                      :stroke-width 3}}]
+
+      (when (not= budgeted 0)
+        [:g
+          ; Static budget line
+          [:line {:x1 0 :y1 h :x2 w :y2 (/ h 3)
+                  :style {:stroke "black"
+                          :stroke-width 3}}]
+
+          ; Date progress line
+          [:line {:x1 split-x :y1 0 :x2 split-x :y2 h
+                  :style {:stroke "black"
+                          :stroke-width 1}}]
+
+          ; Spending line (so far)
+          [:line {:x1 0 :y1 h :x2 split-x :y2 split-y
+                  :style {:stroke color
+                          :stroke-width 2}}]
+
+          ; Spending line (projected)
+          [:line {:x1 split-x :y1 split-y :x2 w :y2 projected-y
+                  :style {:stroke color
+                          :stroke-width 2
+                          :stroke-dasharray "3,3"}}]
+
+          ; Dot at budget point
+          [:circle {:cx split-x :cy budget-y :r 4
+                    :style {:fill "black" :stroke "black"}}]
+
+          ; Dot at split
+          [:circle {:cx split-x :cy split-y :r 4
+                    :style {:fill color :stroke color}}]])
+
+      ; Summary text
+      (let [size 16 left 5 spacing "1.2em"
+            word (if under-budget " ahead" " behind")
+            tspan (fn [& s] [:tspan {:x left :dy spacing} (apply str s)])]
+        [:text {:x left :y 0 :font-size size}
+          (tspan (m/dollars budgeted)
+                 " budgeted")
+          (tspan (m/dollars spent)
+                 " spent")
+          (tspan (m/dollars projected)
+                 " projected")
+          (tspan (m/dollars (js/Math.abs (- spent (* budgeted percent-through-month))))
+                 word " now")
+          (tspan (m/dollars (js/Math.abs (- projected budgeted)))
+                 word " by EOM")])]))
 
 (defn progress-bar []
   (fn [category budget transactions]
@@ -18,17 +79,15 @@
                                (filter #(= (:entityId category)
                                            (:categoryId %)))
                                first)
-          spent-so-far (- (reduce m/add (map :amount relevant-transactions)))
+          spent (if (= 0 (count relevant-transactions))
+                  0
+                  (- (reduce m/add (map :amount relevant-transactions))))
           budgeted (:budgeted category-budget)
           total-days (d/days-in-month)
           days-so-far (d/current-day)]
-      [:div
+      [:div {:style {:margin "10px"}}
         [:h1 (:name category)]
-        [:p (str "budgeted " budgeted)]
-        [:p (str "spent so far " spent-so-far)]
-        [:p (str "total days " total-days)]
-        [:p (str "days so far " days-so-far)]
-        [:hr]])))
+        [progress-bar-graph 250 250 spent budgeted days-so-far total-days]])))
 
 (defn progress-bars []
   (let [budget @(rf/subscribe [:budget-this-month])
@@ -44,6 +103,8 @@
            {:selected selected-category-ids
             :onChange #(rf/dispatch [:progress-bars/set-selected-category-ids
                                      (set (js->clj %))])}]
-          (for [category selected-categories]
-            ^{:key (:entityId category)}
-            [progress-bar category budget transactions])]))))
+          [:div {:style {:display "flex"
+                         :flex-wrap "wrap"}}
+            (for [category selected-categories]
+              ^{:key (:entityId category)}
+              [progress-bar category budget transactions])]]))))
