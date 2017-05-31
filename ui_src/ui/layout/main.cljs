@@ -1,12 +1,10 @@
 (ns ui.layout.main
   (:require [re-frame.core :as rf]
-            [ui.pages.summary :refer [summary]]
             [ui.pages.preferences :refer [preferences]]
             [ui.pages.category-projections :refer [category-projections]]))
 
 (def routes
-  {:summary [#'summary]
-   :preferences [#'preferences]
+  {:preferences [#'preferences]
    :category-projections [#'category-projections]})
 
 (defn main []

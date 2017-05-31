@@ -9,7 +9,7 @@
                          :file                   {:location             nil
                                                   :yfull                nil
                                                   :modified             nil}}
-   :page                 :summary
+   :page                 :category-projections
    :loading              {:background            true
                           :total                 true
                           :message               ""}
@@ -29,7 +29,7 @@
 (s/def ::raw-data              (s/nilable map?))
 (s/def ::active-data           (s/nilable map?))
 (s/def ::budget                (strict-keys ::file ::raw-data ::active-data))
-(s/def ::page                  #{:summary :preferences :category-projections})
+(s/def ::page                  #{:preferences :category-projections})
 (s/def ::background            boolean?)
 (s/def ::total                 boolean?)
 (s/def ::message               string?)
