@@ -4,18 +4,15 @@
   (:require-macros [ui.helpers.spec :refer [strict-keys]]))
 
 (defonce initial-state
-  {:budget              {:raw-data              nil
-                         :active-data           nil
-                         :file                  {:location             nil
-                                                 :yfull                nil
-                                                 :modified             nil}}
+  {:budget              {:raw-data               nil
+                         :active-data            nil
+                         :file                   {:location             nil
+                                                  :yfull                nil
+                                                  :modified             nil}}
    :page                 :summary
    :loading              {:background            true
                           :total                 true
-                          :single-page           {:summary              false
-                                                  :preferences          false
-                                                  :category-projections false}
-                          :message               "testing"}
+                          :message               ""}
    :category-projections {:selected-category-ids #{}}})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -35,9 +32,8 @@
 (s/def ::page                  #{:summary :preferences :category-projections})
 (s/def ::background            boolean?)
 (s/def ::total                 boolean?)
-(s/def ::single-page           map?)
 (s/def ::message               string?)
-(s/def ::loading               (strict-keys ::background ::total ::single-page ::message))
+(s/def ::loading               (strict-keys ::background ::total ::message))
 (s/def ::selected-category-ids set?)
 (s/def ::category-projections  (strict-keys ::selected-category-ids))
 (s/def ::db                    (strict-keys ::budget ::page ::loading ::category-projections))

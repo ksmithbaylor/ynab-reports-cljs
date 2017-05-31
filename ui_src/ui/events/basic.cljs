@@ -9,10 +9,6 @@
   (fn [message]
     (js/alert message)))
 
-(rf/reg-event-db :set-loading
-  (fn [db [_ & args]]
-    (let [path (vec (butlast args))
-          value (last args)]
-      (setval (vec (cons :loading path)) value db))))
-
+(register-setter [:loading :total] :set-loading-total)
+(register-setter [:loading :background] :set-loading-background)
 (register-setter [:loading :message] :set-loading-message)
