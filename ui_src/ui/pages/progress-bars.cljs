@@ -1,74 +1,91 @@
 (ns ui.pages.progress-bars
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
+            [clojure.string :refer [join]]
             [ui.components.category-picker :refer [category-picker]]
             [ui.helpers.money :as m]
             [ui.helpers.dates :as d]))
 
-(defn progress-bar-graph [w h spent budgeted days-so-far total-days]
+(def green "#66BB6A")
+(def red "#EF5350")
+
+(defn progress-bar-graph [title w h spent budgeted days-so-far total-days]
   (let [percent-through-month (/ days-so-far total-days)
         percent-through-budget (/ spent budgeted)
-        under-budget (> percent-through-month percent-through-budget)
+        under-budget (>= percent-through-month percent-through-budget)
         projected (/ spent percent-through-month)
         projected-percent (/ projected budgeted)
         split-x (* w percent-through-month)
-        split-y (- h (* (/ 2 3) h percent-through-budget))
-        projected-y (- h (* (/ 2 3) h projected-percent))
-        budget-y (- h (* (/ 2 3) h percent-through-month))
-        color (if under-budget "green" "red")]
-    [:svg {:width w :height h}
-      ; Border
-      [:rect {:x 0 :y 0 :width w :height h
-              :style {:fill "#eeeeee"
-                      :stroke "#555"
-                      :stroke-width 3}}]
+        split-y (- h (* h percent-through-month))
+        line-break-point (if under-budget
+                           (- h (* projected-percent (- h split-y)))
+                           (* (/ 1 projected-percent) split-x))
+        border-intersect (if under-budget
+                           (- h (* projected-percent h))
+                           (* (/ 1 projected-percent) w))]
+    [:div {:style {:margin "11px"}}
+      [:h1 title]
+      [:div {:style {:font-size 11
+                     :display "flex"
+                     :flex-direction "row"
+                     :justify-content "space-between"}}
+        [:span "B: " (m/dollars budgeted)]
+        [:span "S: " (m/dollars spent)]
+        [:span "P: " (m/dollars projected)]
+        [:span "D: " (m/dollars (- budgeted projected))]]
+      [:svg {:width w :height h}
+        ; Background
+        [:rect {:x 0 :y 0 :width w :height h
+                :style {:fill "#F5F5F5"}}]
 
-      (when (not= budgeted 0)
-        [:g
-          ; Static budget line
-          [:line {:x1 0 :y1 h :x2 w :y2 (/ h 3)
-                  :style {:stroke "black"
-                          :stroke-width 3}}]
+        (when (not= budgeted 0)
+          [:g
+            ; Spending shading
+            (if under-budget
+              [:path {:d (join " " ["M" 0 h "L" w border-intersect "L" w 0 "Z"])
+                      :style {:fill green :opacity 0.15}}]
+              [:path {:d (join " " ["M" 0 h "L" border-intersect 0 "L" w 0 "Z"])
+                      :style {:fill "red" :opacity 0.15}}])
 
-          ; Date progress line
-          [:line {:x1 split-x :y1 0 :x2 split-x :y2 h
-                  :style {:stroke "black"
-                          :stroke-width 1}}]
+            ; Date shading
+            (let [width split-x height (- h split-y)]
+              [:rect {:x 0 :y split-y :width width :height height
+                      :style {:fill "#212121"
+                              :opacity 0.15}}])
 
-          ; Spending line (so far)
-          [:line {:x1 0 :y1 h :x2 split-x :y2 split-y
-                  :style {:stroke color
-                          :stroke-width 2}}]
+            ; Spending line
+            (if under-budget
+              [:g
+                [:line {:x1 0 :y1 h :x2 split-x :y2 line-break-point
+                        :style {:stroke green
+                                :stroke-width 3}}]
+                [:line {:x1 split-x :y1 line-break-point :x2 w :y2 border-intersect
+                        :style {:stroke green
+                                :stroke-width 3
+                                :stroke-dasharray "0,3,3"}}]]
+              [:g
+                [:line {:x1 0 :y1 h :x2 line-break-point :y2 split-y
+                        :style {:stroke "red"
+                                :stroke-width 3}}]
+                [:line {:x1 line-break-point :y1 split-y :x2 border-intersect :y2 0
+                        :style {:stroke "red"
+                                :stroke-width 3
+                                :stroke-dasharray "0,3,3"}}]])
 
-          ; Spending line (projected)
-          [:line {:x1 split-x :y1 split-y :x2 w :y2 projected-y
-                  :style {:stroke color
-                          :stroke-width 2
-                          :stroke-dasharray "3,3"}}]
+            ; Static budget line
+            [:line {:x1 0 :y1 h :x2 w :y2 0
+                    :style {:stroke "#555"
+                            :stroke-width 3}}]
 
-          ; Dot at budget point
-          [:circle {:cx split-x :cy budget-y :r 4
-                    :style {:fill "black" :stroke "black"}}]
+            ; Dot at budget point
+            [:circle {:cx split-x :cy split-y :r 4
+                      :style {:fill "#555" :stroke "#555"}}]
 
-          ; Dot at split
-          [:circle {:cx split-x :cy split-y :r 4
-                    :style {:fill color :stroke color}}]])
-
-      ; Summary text
-      (let [size 16 left 5 spacing "1.2em"
-            word (if under-budget " ahead" " behind")
-            tspan (fn [& s] [:tspan {:x left :dy spacing} (apply str s)])]
-        [:text {:x left :y 0 :font-size size}
-          (tspan (m/dollars budgeted)
-                 " budgeted")
-          (tspan (m/dollars spent)
-                 " spent")
-          (tspan (m/dollars projected)
-                 " projected")
-          (tspan (m/dollars (js/Math.abs (- spent (* budgeted percent-through-month))))
-                 word " now")
-          (tspan (m/dollars (js/Math.abs (- projected budgeted)))
-                 word " by EOM")])]))
+            ; Border
+            [:rect {:x 0 :y 0 :width w :height h
+                    :style {:fill-opacity 0
+                            :stroke "#555"
+                            :stroke-width 4}}]])]]))
 
 (defn progress-bar []
   (fn [category budget transactions]
@@ -85,9 +102,7 @@
           budgeted (:budgeted category-budget)
           total-days (d/days-in-month)
           days-so-far (d/current-day)]
-      [:div {:style {:margin "10px"}}
-        [:h1 (:name category)]
-        [progress-bar-graph 250 250 spent budgeted days-so-far total-days]])))
+      [progress-bar-graph (:name category) 250 250 spent budgeted days-so-far total-days])))
 
 (defn progress-bars []
   (let [budget @(rf/subscribe [:budget-this-month])
@@ -105,6 +120,11 @@
                                      (set (js->clj %))])}]
           [:div {:style {:display "flex"
                          :flex-wrap "wrap"}}
+            ; [progress-bar-graph "Under"     250 250 45  120 20 30]
+            ; [progress-bar-graph "Over"      250 250 95  120 20 30]
+            ; [progress-bar-graph "Way Under" 250 250 3   120 20 30]
+            ; [progress-bar-graph "Way Over"  250 250 300 120 20 30]
+            ; [progress-bar-graph "Exact"     250 250 60  120 20 30]
             (for [category selected-categories]
               ^{:key (:entityId category)}
               [progress-bar category budget transactions])]]))))
