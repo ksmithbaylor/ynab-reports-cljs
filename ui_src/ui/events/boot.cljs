@@ -22,8 +22,8 @@
   (fn [state]
     (when-let [location (get-in state [:budget :file :location])]
       (rf/dispatch [:set-budget-location location]))
-    (when-let [ids (get-in state [:progress-bars :selected-category-ids])]
-      (rf/dispatch [:progress-bars/set-selected-category-ids ids]))
+    (when-let [ids (get-in state [:category-projections :selected-category-ids])]
+      (rf/dispatch [:category-projections/set-selected-category-ids ids]))
     (rf/dispatch [:start-app])))
 
 (rf/reg-event-fx :start-app

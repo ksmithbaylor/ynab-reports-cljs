@@ -2,12 +2,12 @@
   (:require [re-frame.core :as rf]
             [ui.pages.summary :refer [summary]]
             [ui.pages.preferences :refer [preferences]]
-            [ui.pages.progress-bars :refer [progress-bars]]))
+            [ui.pages.category-projections :refer [category-projections]]))
 
 (def routes
   {:summary [#'summary]
    :preferences [#'preferences]
-   :progress-bars [#'progress-bars]})
+   :category-projections [#'category-projections]})
 
 (defn main []
   (when-not @(rf/subscribe [:loading-total])

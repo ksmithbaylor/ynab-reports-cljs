@@ -3,4 +3,4 @@
             [ui.events.basic]
             [ui.events.boot]
             [ui.events.budget-file]
-            [ui.events.progress-bars]))
+            [ui.events.category-projections]))

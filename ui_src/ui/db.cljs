@@ -4,19 +4,19 @@
   (:require-macros [ui.helpers.spec :refer [strict-keys]]))
 
 (defonce initial-state
-  {:budget        {:raw-data              nil
-                   :active-data           nil
-                   :file                  {:location      nil
-                                           :yfull         nil
-                                           :modified      nil}}
-   :page          :summary
-   :loading       {:background            true
-                   :total                 true
-                   :single-page           {:summary       false
-                                           :preferences   false
-                                           :progress-bars false}
-                   :message               "testing"}
-   :progress-bars {:selected-category-ids #{}}})
+  {:budget              {:raw-data              nil
+                         :active-data           nil
+                         :file                  {:location             nil
+                                                 :yfull                nil
+                                                 :modified             nil}}
+   :page                 :summary
+   :loading              {:background            true
+                          :total                 true
+                          :single-page           {:summary              false
+                                                  :preferences          false
+                                                  :category-projections false}
+                          :message               "testing"}
+   :category-projections {:selected-category-ids #{}}})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Strict specs for the db shape
@@ -32,12 +32,12 @@
 (s/def ::raw-data              (s/nilable map?))
 (s/def ::active-data           (s/nilable map?))
 (s/def ::budget                (strict-keys ::file ::raw-data ::active-data))
-(s/def ::page                  #{:summary :preferences :progress-bars})
+(s/def ::page                  #{:summary :preferences :category-projections})
 (s/def ::background            boolean?)
 (s/def ::total                 boolean?)
 (s/def ::single-page           map?)
 (s/def ::message               string?)
 (s/def ::loading               (strict-keys ::background ::total ::single-page ::message))
 (s/def ::selected-category-ids set?)
-(s/def ::progress-bars         (strict-keys ::selected-category-ids))
-(s/def ::db                    (strict-keys ::budget ::page ::loading ::progress-bars))
+(s/def ::category-projections  (strict-keys ::selected-category-ids))
+(s/def ::db                    (strict-keys ::budget ::page ::loading ::category-projections))

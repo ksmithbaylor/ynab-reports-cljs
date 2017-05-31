@@ -1,4 +1,4 @@
-(ns ui.pages.progress-bars
+(ns ui.pages.category-projections
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
             [clojure.string :refer [join]]
@@ -9,7 +9,7 @@
 (def green "#66BB6A")
 (def red "#EF5350")
 
-(defn progress-bar-graph [title w h spent budgeted days-so-far total-days]
+(defn projection-graph [title w h spent budgeted days-so-far total-days]
   (let [percent-through-month (/ days-so-far total-days)
         percent-through-budget (/ spent budgeted)
         under-budget (>= percent-through-month percent-through-budget)
@@ -87,7 +87,7 @@
                             :stroke "#555"
                             :stroke-width 4}}]])]]))
 
-(defn progress-bar []
+(defn category-projection []
   (fn [category budget transactions]
     (let [relevant-transactions (filter #(= (:entityId category)
                                             (:categoryId %))
@@ -102,29 +102,29 @@
           budgeted (:budgeted category-budget)
           total-days (d/days-in-month)
           days-so-far (d/current-day)]
-      [progress-bar-graph (:name category) 250 250 spent budgeted days-so-far total-days])))
+      [projection-graph (:name category) 250 250 spent budgeted days-so-far total-days])))
 
-(defn progress-bars []
+(defn category-projections []
   (let [budget @(rf/subscribe [:budget-this-month])
         categories @(rf/subscribe [:sub-categories])
         transactions @(rf/subscribe [:transactions-this-month])]
     (fn []
-      (let [selected-category-ids @(rf/subscribe [:progress-bars/selected-category-ids])
+      (let [selected-category-ids @(rf/subscribe [:category-projections/selected-category-ids])
             selected-categories (filter #(get selected-category-ids
                                               (:entityId %))
                                         categories)]
         [:div
           [category-picker
            {:selected selected-category-ids
-            :onChange #(rf/dispatch [:progress-bars/set-selected-category-ids
+            :onChange #(rf/dispatch [:category-projections/set-selected-category-ids
                                      (set (js->clj %))])}]
           [:div {:style {:display "flex"
                          :flex-wrap "wrap"}}
-            ; [progress-bar-graph "Under"     250 250 45  120 20 30]
-            ; [progress-bar-graph "Over"      250 250 95  120 20 30]
-            ; [progress-bar-graph "Way Under" 250 250 3   120 20 30]
-            ; [progress-bar-graph "Way Over"  250 250 300 120 20 30]
-            ; [progress-bar-graph "Exact"     250 250 60  120 20 30]
+            ; [projection-graph "Under"     250 250 45  120 20 30]
+            ; [projection-bar-graph "Over"      250 250 95  120 20 30]
+            ; [projection-bar-graph "Way Under" 250 250 3   120 20 30]
+            ; [projection-bar-graph "Way Over"  250 250 300 120 20 30]
+            ; [projection-bar-graph "Exact"     250 250 60  120 20 30]
             (for [category selected-categories]
               ^{:key (:entityId category)}
-              [progress-bar category budget transactions])]]))))
+              [category-projection category budget transactions])]]))))

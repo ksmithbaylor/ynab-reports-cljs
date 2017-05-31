@@ -19,8 +19,8 @@
 (rf/reg-sub :raw-data              #(get-in % [:budget :raw-data]))
 (rf/reg-sub :active-data           #(get-in % [:budget :active-data]))
 
-(rf/reg-sub :progress-bars/selected-category-ids
-  #(get-in % [:progress-bars :selected-category-ids]))
+(rf/reg-sub :category-projections/selected-category-ids
+  #(get-in % [:category-projections :selected-category-ids]))
 
 (rf/reg-sub :transactions
   :<- [:active-data]
