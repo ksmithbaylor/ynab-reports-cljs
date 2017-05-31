@@ -38,5 +38,6 @@
         modified @(rf/subscribe [:budget-yfull-modified])
         extra-button (r/as-element [change-location-button location])]
     [Card {:title "Budget Location"
-           :extra extra-button}
+           :extra extra-button
+           :style {:top "0.5em" :right "0.5em" :bottom "initial" :left "0.5em"}}
       [location-display location modified]]))
