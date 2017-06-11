@@ -20,8 +20,9 @@
 
 (rf/reg-fx :deeplink
   (fn [state]
-    (when-let [location (get-in state [:budget :file :location])]
+    (if-let [location (get-in state [:budget :file :location])]
       (rf/dispatch [:set-budget-location location]))
+      (rf/dispatch [:set-loading-total false])
     (when-let [ids (get-in state [:category-projections :selected-category-ids])]
       (rf/dispatch [:category-projections/set-selected-category-ids ids]))
     (rf/dispatch [:start-app])))
